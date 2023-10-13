@@ -1,0 +1,126 @@
+<Routes>
+  <Route path="/" element={<Landing />} />
+  <Route path="/Dashboard" element={<UserDashboard />} />
+  <Route path="/pricing" element={<Pricing />} />
+  <Route path="/profile/myadds" element={<MyAds />} />
+  <Route path="/profile/pending" element={<Pending />} />
+  <Route path="/profile/declined" element={<Declined />} />
+  <Route path="/new-ads" element={<CreateAds />} />
+  <Route path="/profile/closed" element={<Closed />} />
+  <Route path="/profile/drafts" element={<Drafts />} />
+  <Route path="/signup" element={<Signup />} />
+  <Route path="/login" element={<Login />} />
+</Routes>;
+
+const [name, setName] = useState("");
+const [description, setDescription] = useState("");
+const [category, setCategoty] = useState("");
+const [subcategory, setSubcategory] = useState("");
+const [brand, setBrand] = useState("");
+const [quantity, setQuantity] = useState("");
+const [deliveryOption, setDeliveryOption] = useState("");
+const [location, setLocation] = useState("");
+const [price, setPrice] = useState("");
+const [bulkPrice, setBulkPrice] = useState("");
+const [warrantAvailable, setWarrantAvailable] = useState("");
+const [negotiable, setNegotiable] = useState("");
+const [image, setImage] = useState<File | null>(null);
+const [imagePreview, setImagePreview] = useState<string | null>(null);
+status;
+
+
+
+
+import { createSlice } from '@reduxjs/toolkit'
+import { registerUser, userLogin } from './authActions'
+
+// initialize userToken from local storage
+const userToken = localStorage.getItem('userToken')
+  ? localStorage.getItem('userToken')
+  : null
+
+const initialState = {
+  loading: false,
+  userInfo: null,
+  userToken,
+  error: null,
+  success: false,
+}
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    logout: (state) => {
+      localStorage.removeItem('userToken') // delete token from storage
+      state.loading = false
+      state.userInfo = null
+      state.userToken = null
+      state.error = null
+    },
+    setCredentials: (state, { payload }) => {
+      state.userInfo = payload
+    },
+  },
+  extraReducers: {
+    // login user
+    [userLogin.pending]: (state) => {
+      state.loading = true
+      state.error = null
+    },
+    [userLogin.fulfilled]: (state, { payload }) => {
+      state.loading = false
+      state.userInfo = payload
+      state.userToken = payload.userToken
+    },
+    [userLogin.rejected]: (state, { payload }) => {
+      state.loading = false
+      state.error = payload
+    },
+    // register user
+    [registerUser.pending]: (state) => {
+      state.loading = true
+      state.error = null
+    },
+    [registerUser.fulfilled]: (state, { payload }) => {
+      state.loading = false
+      state.success = true // registration successful
+    },
+    [registerUser.rejected]: (state, { payload }) => {
+      state.loading = false
+      state.error = payload
+    },
+  },
+})
+
+export const { logout, setCredentials } = authSlice.actions
+
+export default authSlice.reducer
+
+
+
+
+    // Convert FormData to an object
+    const values: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      values[key] = value.toString();
+    });
+
+    console.log(values);
+
+    try {
+      dispatch(setLoader(true));
+
+      // Make a POST request using Axios
+      const response = await axios.get(
+        "http://13.245.255.54:8000/products/getproducts"
+      );
+
+      useEffect(() => {
+        console.log("====================================");
+        console.log(response);
+        console.log("====================================");
+      }, []);
+      dispatch(setLoader(false));
+
+      const res = response.data;

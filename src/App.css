@@ -1,0 +1,33 @@
+/* slider.css */
+
+/* Define the width and background color for the text container */
+.text-container {
+  width: 80vw; /* 80% of the viewport width */
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px; /* Adjust as needed */
+  color: white; /* Text color */
+}
+
+/* Style the text content */
+.text-content {
+  font-size: 24px; /* Adjust the font size as needed */
+  line-height: 1.4;
+  margin: 0; /* Remove default margin */
+  padding: 10px; /* Adjust as needed */
+}
+
+/* Center the text horizontally and vertically */
+.text-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style the full-width image */
+.full-width-image {
+  width: 80vw; /* 80% of the viewport width */
+  height: auto; /* Maintain aspect ratio */
+}
