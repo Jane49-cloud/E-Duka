@@ -17,8 +17,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BiSolidBellRing } from "react-icons/bi";
 import { setOpener } from "../Redux/slices/opener";
-import userphoto from "../assets/user.jpeg"
+import userphoto from "../assets/user.jpeg";
 import Searchbar from "./searchbar";
+import { setLoader } from "../Redux/slices/LoaderSlice";
+import { setUser } from "../Redux/slices/AuthSlice";
+import { currentUser } from "../Redux/hooks/user.actions";
+import { toast } from "react-toastify";
 
 type NavbarProps = {
   SetShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,6 +37,30 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.auth.user);
   const { open } = useSelector((state: any) => state.opener);
+  const userToken = useSelector((state: any) => state.auth.userToken);
+
+  const getUser = async () => {
+    try {
+      dispatch(setLoader(true));
+      const response = await currentUser();
+      // toast.success("user Fetched successfully");
+      // console.log(response.data.Data);
+      dispatch(setUser(response.data.Data));
+      dispatch(setLoader(false));
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log(login());
+  // }, []);
+
+  useEffect(() => {
+    if (userToken) {
+      getUser();
+    }
+  }, [userToken]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,17 +77,14 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => { }, [user]);
-  const [userSmallnav, setUserSmallNav] = useState(false)
+  useEffect(() => {}, [user]);
+  const [userSmallnav, setUserSmallNav] = useState(false);
 
   return (
-
-
-
-
     <nav
-      className={`w-full  flex flex-col items-center fixed top-0 z-20 ${scrolled ? "bg-black" : "bg-black"
-        }`}
+      className={`w-full  flex flex-col items-center fixed top-0 z-20 ${
+        scrolled ? "bg-black" : "bg-black"
+      }`}
       style={{ marginBottom: "2px" }}
     >
       <div className="w-full flex  justify-between items-center max-w-7xl mx-auto">
@@ -80,7 +105,11 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
               window.scrollTo(0, 0);
             }}
           >
-            <img src={logo} alt="logo" className=" p-0 m-0 object-contain bg-green-500 h-[50px] w-fit" />
+            <img
+              src={logo}
+              alt="logo"
+              className=" p-0 m-0 object-contain bg-green-500 h-[50px] w-fit"
+            />
             <p className="text-slate-600 text-xs italic">your one stop shop</p>
           </Link>
         </div>
@@ -97,8 +126,9 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
           {Links.map((nav) => (
             <li
               key={nav.name}
-              className={`${active === nav.name ? "text-primary-orange" : "text-white"
-                } capitalize hover:text-white text-[18px] font-medium cursor-pointer`}
+              className={`${
+                active === nav.name ? "text-primary-orange" : "text-white"
+              } capitalize hover:text-white text-[18px] font-medium cursor-pointer`}
               onClick={() => setActive(nav.name)}
             >
               <Link to={nav.url}>{nav.name}</Link>
@@ -138,22 +168,36 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
                   </IconButton>
                 </Link>
               </li> */}
-              <div className="h-[50px] w-[50px] rounded-full border border-slate-500 p-1 relative cursor-pointer" onClick={() => { setUserSmallNav(!userSmallnav) }}>
+              <div
+                className="h-[50px] w-[50px] rounded-full border border-slate-500 p-1 relative cursor-pointer"
+                onClick={() => {
+                  setUserSmallNav(!userSmallnav);
+                }}
+              >
                 <div className="h-4 w-4 rounded-full absolute top-0 right-0">
                   <BiSolidBellRing className="text-red-400" />
                 </div>
-                <div className="h-4 text-center w-4 rounded-full absolute bg-green-400 top-0 left-0 text-[10px]">9+</div>
+                <div className="h-4 text-center w-4 rounded-full absolute bg-green-400 top-0 left-0 text-[10px]">
+                  9+
+                </div>
                 <img className=" rounded-full" src={userphoto} alt="" />
-                {
-                  userSmallnav && <div className=" absolute text-sm flex text-start justify-start items-start text-stone-600  flex-col gap-1 px-3 font-normal py-2 rounded-[3px] bg-gray-200 ">
-                    <p className="hover:underline hover:text-green-400 cursor-pointer">profile</p>
-                    <p className="hover:underline hover:text-green-400 cursor-pointer">dashboard</p>
-                    <p className="hover:underline hover:text-green-400 cursor-pointer">notifications</p>
-                    <button className="hover:underline hover:text-green-400 cursor-pointer">log out</button>
+                {userSmallnav && (
+                  <div className=" absolute text-sm flex text-start justify-start items-start text-stone-600  flex-col gap-1 px-3 font-normal py-2 rounded-[3px] bg-gray-200 ">
+                    <p className="hover:underline hover:text-green-400 cursor-pointer">
+                      profile
+                    </p>
+                    <p className="hover:underline hover:text-green-400 cursor-pointer">
+                      dashboard
+                    </p>
+                    <p className="hover:underline hover:text-green-400 cursor-pointer">
+                      notifications
+                    </p>
+                    <button className="hover:underline hover:text-green-400 cursor-pointer">
+                      log out
+                    </button>
                   </div>
-                }
+                )}
               </div>
-
 
               {/* <FormControl>
                 <Select
@@ -220,8 +264,9 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
           </IconButton>
 
           <div
-            className={`${!toggle ? "hidden" : "flex"
-              } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[300px]  text-white capitalize z-10 rounded-xl`}
+            className={`${
+              !toggle ? "hidden" : "flex"
+            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[300px]  text-white capitalize z-10 rounded-xl`}
           >
             <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
               <div>
@@ -235,10 +280,11 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
               {Links.map((nav) => (
                 <li
                   key={nav.name}
-                  className={`font-poppins font-medium cursor-pointer text-[16px] ${active === nav.name
-                    ? "text-primary-orange"
-                    : "text-secondary"
-                    }`}
+                  className={`font-poppins font-medium cursor-pointer text-[16px] ${
+                    active === nav.name
+                      ? "text-primary-orange"
+                      : "text-secondary"
+                  }`}
                   onClick={() => {
                     setToggle(!toggle);
                     setActive(nav.name);
@@ -336,7 +382,6 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
       </div>
       <Searchbar />
     </nav>
-
   );
 };
 

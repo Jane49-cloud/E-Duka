@@ -53,7 +53,7 @@ const Popular = () => {
             price={product.productprice}
             // seller={product.seller}
             seller="John Doe"
-            description={product.productdescription}
+            // description={product.productdescription}
             id={product.producttid}
           />
           // <div className="responsive-item  " key={image.id}>

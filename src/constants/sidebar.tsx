@@ -8,6 +8,7 @@ import { categoryData, subcategoryData } from "../interface/common";
 import { axiosService } from "../Redux/helpers/axios";
 import { HiLockClosed } from "react-icons/hi";
 import { setOpener } from "../Redux/slices/opener";
+import { ChevronRightTwoTone } from "@mui/icons-material";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -64,38 +65,46 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className=" rounded">
       <div
         className=" px-4  bg-gray-light m-3 overflow-y-auto pt-10 my-sidebar  no-scrollbar"
         style={{
-          height: "100vh",
-          maxHeight: "100vh",
+          height: "55vh",
+          maxHeight: "55vh",
           position: "sticky",
           top: "0",
         }}
       >
-        <ul className="pt-6">
+        <ul className="pt-4">
           {categories.map((Menu: categoryData, index: number) => (
             <div>
               <li
                 key={index}
-                className={`flex  rounded-md p-2  cursor-pointer hover:bg-white  text-sm items-center gap-x-4 
+                className={`flex  rounded-md p-2  cursor-pointer hover:bg-white  text-sm items-center gap-x-4  border-b-2 border-gray-50
               ${"mt-2"} ${index === 0 && "bg-light-white"} `}
                 onMouseOver={() => {
                   handleCategoryMouseOver(Menu.categoryname);
                   setSubmenuOpen(true);
                 }}
               >
-                {/* <img src={`./src/assets/${Menu.src}.png`} /> */}
-                <span className={`${!open && ""} origin-left duration-200`}>
+                <img
+                  src={Menu.categoryimage}
+                  className="h-6 w-6 "
+                  object-cover
+                />
+                <span
+                  className={`${!open && ""} origin-left duration-200 flex-1`}
+                >
                   {Menu.categoryname}
                 </span>
+
+                <ChevronRightTwoTone className="ml-auto" />
               </li>
             </div>
           ))}
         </ul>
       </div>
-      {submenuOpen && (
+      {/* {submenuOpen && (
         <div
           className="bg-gray-light absolute top-3 h-full w-72 z-20 mt-20 p-20 border-l border-gray-400"
           style={{
@@ -124,7 +133,7 @@ const Sidebar = () => {
             </ul>
           )}
         </div>
-      )}
+      )} */}
 
       {/* this is where the sidebar menu will sit when on smaller devices */}
 
@@ -160,7 +169,7 @@ const Sidebar = () => {
                     // setSubmenuOpen(true);
                   }}
                 >
-                  {/* <img src={`./src/assets/${Menu.src}.png`} /> */}
+                  {/* <img src={Menu.categoryimage} /> */}
                   <span
                     className={`${!open && "hidden"} origin-left duration-200`}
                   >

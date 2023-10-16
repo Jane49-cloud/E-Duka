@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { productCard } from "../../interface/common";
-import { BsBookmarkPlus, BsCloudDownload, BsWhatsapp } from "react-icons/bs";
-import { PiShareFatLight } from "react-icons/pi";
-import { AiOutlineComment, AiOutlineEye, AiOutlinePhone } from "react-icons/ai";
-import { MdOutlineEmail, MdOutlineFavoriteBorder } from "react-icons/md";
+// import { BsBookmarkPlus, BsCloudDownload, BsWhatsapp } from "react-icons/bs";
+// import { PiShareFatLight } from "react-icons/pi";
+// import { AiOutlineComment, AiOutlineEye, AiOutlinePhone } from "react-icons/ai";
+// import { MdOutlineEmail, MdOutlineFavoriteBorder } from "react-icons/md";
 
 function Productcard({
   image,
   name,
   price,
   seller,
-  description,
+  // description,
   id,
 }: productCard) {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function Productcard({
       onClick={() => navigate(`/ad_info/${id}`)}
     >
       <img
-        className="rounded-t-lg h-3/5 w-full object-cover img-responsive "
+        className="rounded-lg h-3/5 w-full object-cover img-responsive "
         src={image}
       />
       <div className="px-3 py-2">
@@ -35,10 +35,10 @@ function Productcard({
           <p className="text-slate-400 text-xs"> rated 4.5 </p>
           <p className="text-xs text-slate-400 my-2">(of 200 reviews)</p>
         </div>
-        <p className="line-clamp-3 leading- pr-10 text-slate-500 text-xs">
+        {/* <p className="line-clamp-3 leading- pr-10 text-slate-500 text-xs">
           {description}
-        </p>
-        <div className="mt-3 flex flex-row gap-2 flex-wrap">
+        </p> */}
+        {/* <div className="mt-3 flex flex-row gap-2 flex-wrap">
           <button className="p-2 rounded-full bg-gray-200">
             <BsCloudDownload className="bg-gray-300 rounded-2xl " />
           </button>
@@ -66,7 +66,7 @@ function Productcard({
           <button className="p-2 rounded-full bg-gray-200">
             <MdOutlineEmail className="bg-gray-300 rounded-2xl" />
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

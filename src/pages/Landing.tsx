@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoader } from "../Redux/slices/LoaderSlice";
 import { toast } from "react-toastify";
 import { setUser } from "../Redux/slices/AuthSlice";
-// import Minslider from "../components/landing/minislider";
+import Minslider from "../components/landing/minislider";
 import AnotherSlider from "../components/landing/AotherSlider";
+import TextAnimation from "../components/landing/AnimatedText";
 // import axios from "axios";
 
 const Landing = () => {
@@ -45,21 +46,17 @@ const Landing = () => {
   }, []);
   return (
     <div>
-
-
       <div className="flex parent ">
         <Sidebar />
-        <div className="flex-1 p-4 mx-auto  my-body ">
-
-
+        <div className="flex-1 mx-auto  my-body ">
           <ImageSlider />
+          <Minslider />
           <Popular />
-          {/* <Minslider /> */}
           <AnotherSlider />
+          <TextAnimation />
         </div>
       </div>
     </div>
-
   );
 };
 

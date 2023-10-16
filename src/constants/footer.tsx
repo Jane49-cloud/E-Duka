@@ -10,14 +10,14 @@ import { IconButton } from "@mui/material";
 
 const Footer = () => {
   return (
-    <div className="bg-white w-full relative">
+    <div className=" w-full relative">
       <div
         className="top-0 left-0 p-10 flex flex-wrap justify-around"
         style={{
           position: "absolute",
           top: "0",
           left: "0",
-          backgroundColor: "#1b1e24",
+          backgroundColor: "black",
           color: "#9da2ad",
           fontFamily: "Poppins, helvetica, Arial",
           fontSize: "15px",

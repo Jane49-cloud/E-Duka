@@ -18,21 +18,26 @@
   max-height: 72px;
   max-width: 250px;
 }
+
 .img-responsive {
-  height: 250px;
-  width: 100%;
+  height: 200px;
+  width: 96%;
+  margin: auto;
+  margin-top: 2px;
 }
 
 .responsive {
-  max-width: 75vw;
-  margin: 3px auto;
+  max-width: 80vw;
+  margin: 2px auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
 }
+
 .responsive-item {
-  /* background-color: yellow; */
-  padding: 0;
+  padding: 2px;
+
+  height: 300px;
   color: #222;
   font-size: 0.77rem;
   line-height: 1.7;
