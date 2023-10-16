@@ -1,16 +1,21 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Categories } from "../../data/categories";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Category } from "@mui/icons-material";
 
 function AnotherSlider() {
   const sliderRef = useRef<HTMLDivElement | null>(null); // Explicitly specify the type
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const slideLeft = () => {
     const slider = sliderRef.current;
     if (slider) {
       const firstChild = slider.firstElementChild as HTMLElement;
-      slider.scrollLeft -= firstChild.offsetWidth + 16; // Adjust 16 to match your margin or padding
+      const itemWidth = firstChild.offsetWidth + 16; // Adjust 16 to match your margin or padding
+      setCurrentIndex(
+        (prevIndex) => (prevIndex - 1 + Categories.length) % Categories.length
+      );
+      slider.scrollLeft -= itemWidth;
     }
   };
 
@@ -18,7 +23,9 @@ function AnotherSlider() {
     const slider = sliderRef.current;
     if (slider) {
       const firstChild = slider.firstElementChild as HTMLElement;
-      slider.scrollLeft += firstChild.offsetWidth + 16; // Adjust 16 to match your margin or padding
+      const itemWidth = firstChild.offsetWidth + 16; // Adjust 16 to match your margin or padding
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % Categories.length);
+      slider.scrollLeft += itemWidth;
     }
   };
 
@@ -56,7 +63,15 @@ function AnotherSlider() {
           <div
             key={index}
             className="flex bg-primary-orange text-white rounded shadow-custom p-4 gap-3"
-            style={{ flex: "0 0 auto", margin: "0 8px" }}
+            style={{
+              flex: "0 0 auto",
+              margin: "0 8px",
+              display:
+                index >= currentIndex &&
+                index < currentIndex + Categories.length
+                  ? "block"
+                  : "none",
+            }}
           >
             <Category />
             <p className="text-sm truncate">{item.name}</p>

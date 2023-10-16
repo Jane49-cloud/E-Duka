@@ -9,6 +9,7 @@ import { ProductData, subcategoryData } from "../../interface/common";
 import { setCategories } from "../../Redux/slices/categoriesSlice";
 import { fetchCategories } from "../../Redux/hooks/categories.actions";
 import { axiosService } from "../../Redux/helpers/axios";
+import { useNavigate } from "react-router-dom";
 
 // Define the types for your props
 type AdFormProps = {
@@ -20,6 +21,7 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
   const categories = useSelector((state: any) => state.categories.categories);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [subcategories, setSubcategories] = useState<subcategoryData[]>([]);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -32,7 +34,17 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
 
   useEffect(() => {
     getCategory();
-    // console.log(categories);
+
+    if (selectedCategory === null) {
+      setSelectedCategory(""); // Set selectedCategory to an empty string initially
+    }
+
+    if (selectedCategory) {
+      setFormData((prevData) => ({
+        ...prevData,
+        category: selectedCategory,
+      }));
+    }
   }, []);
 
   const tryfetchingSubcategories = async (categoryName: string) => {
@@ -57,7 +69,13 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
       dispatch(setLoader(true));
       const subcategoriesData = await tryfetchingSubcategories(newCategory);
       setSubcategories(subcategoriesData);
-      dispatch(setLoader(true));
+      dispatch(setLoader(false));
+
+      // Update formData.category here
+      setFormData((prevData) => ({
+        ...prevData,
+        category: newCategory,
+      }));
     }
   };
 
@@ -68,8 +86,8 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
     productdescription: "",
     productprice: "",
     quantity: 1,
-    category: "category",
-    subcategory: "subcategory",
+    category: "",
+    subcategory: "",
     producttype: "",
     brand: "",
     mainimage: "null",
@@ -166,10 +184,15 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
   ) => {
     const { name, value, type } = e.target;
 
+    // Replace special characters with spaces before setting the state
+    const sanitizedValue = value.replace(/[^\w\s]+/g, " ");
+
     setFormData((prevData) => ({
       ...prevData,
       [name]:
-        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+        type === "checkbox"
+          ? (e.target as HTMLInputElement).checked
+          : sanitizedValue,
     }));
   };
 
@@ -183,7 +206,7 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
     }));
   };
 
-  // console.log(formData);
+  console.log(formData);
   // function to create a new product
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -194,19 +217,36 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
       const response = await createProduct(formData);
       dispatch(setLoader(false));
       toast.success("product added successfully");
+      setShowAdsForm(false);
+      navigate("/");
       console.log(response);
     } catch (error: any) {
       toast.error(error.message);
       dispatch(setLoader(false));
     }
+    navigate("/");
+
     // clear form data after submission
+    setFormData({
+      productname: "",
+      productdescription: "",
+      productprice: "",
+      quantity: 1,
+      category: "",
+      subcategory: "",
+      producttype: "",
+      brand: "",
+      mainimage: "null",
+      productimages: [],
+      producttid: "",
+    });
   };
 
   // console.log(subcategories);
   return (
     <>
       {showAdsForm && (
-        <div className="absolute min-h-full w-full bg-stone-300/50 z-50 flex items-center justify-center py-10 overflow-y-auto">
+        <div className="absolute px-5 min-h-full w-full bg-stone-300/50 z-50 flex items-center justify-center py-2 overflow-y-auto">
           <form
             className="w-full lg:w-4/6 h-5/6  bg-gray-light rounded-2xl shadow-2xl"
             onSubmit={handleSubmit}
@@ -304,7 +344,7 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
                     Category:
                   </label>
                   <select
-                    value={selectedCategory || ""}
+                    value={formData.category}
                     onChange={handleCategoryChange}
                     id="category"
                     name="category"
@@ -328,18 +368,14 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
                     Subcategory:
                   </label>
                   <select
-                    value={
-                      subcategories.length > 0
-                        ? subcategories[0].subcategoryname
-                        : ""
-                    }
+                    value={formData.subcategory || ""}
                     onChange={handleSelectChange}
-                    id="category"
-                    name="category"
+                    id="subcategory"
+                    name="subcategory"
                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange"
                     required
                   >
-                    <option value="">Select a Category</option>
+                    <option value="">Select a Subcategory</option>
                     {subcategories.map((c) => (
                       <option key={c.subcategoryname} value={c.subcategoryname}>
                         {c.subcategoryname}

@@ -66,6 +66,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       console.log(response);
 
       SetShowRegister(false);
+      SetShowLogin(true);
     } catch (error: any) {
       toast.error(error.message);
       dispatch(setLoader(false));
@@ -104,7 +105,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   return (
     <>
       {showRegister && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50 p-5">
           <div className="lg:w-4/6 h-5/6 w-full bg-gray-light rounded-2xl p-10 shadow-2xl overflow-y-scroll ">
             <div className="flex items-center justify-center gap-3">
               <h4 className="text-center mb-2">
