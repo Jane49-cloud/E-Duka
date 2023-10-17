@@ -140,7 +140,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             </div>
 
             <form
-              onSubmit={handleSubmit}
+              // onSubmit={handleSubmit}
               className="mx-auto p-4 border rounded-lg shadow-lg mt-4"
             >
               <div className="mb-4">
@@ -303,7 +303,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 </label>
               </div>
               <button
-                onClick={() => setShowPassword(false)}
+                onClick={() => {
+                  setShowPassword(false);
+                  handleSubmit;
+                  console.log("Submit button clicked");
+                }}
                 type="submit"
                 className="bg-primary-orange text-white py-2 px-4 rounded-xl hover:bg-secondary-orange transition duration-300 w-full"
               >

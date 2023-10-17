@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProductData } from "../../interface/common";
+import { setLoader } from "./LoaderSlice";
 
 interface CategoriesState {
   Ads: ProductData[];

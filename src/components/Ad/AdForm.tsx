@@ -10,6 +10,7 @@ import { setCategories } from "../../Redux/slices/categoriesSlice";
 import { fetchCategories } from "../../Redux/hooks/categories.actions";
 import { axiosService } from "../../Redux/helpers/axios";
 import { useNavigate } from "react-router-dom";
+import { Delete } from "@mui/icons-material";
 
 // Define the types for your props
 type AdFormProps = {
@@ -98,6 +99,31 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
   });
   const [mainimagePreview, setmainimagePreview] = useState<string | null>(null);
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+
+  const deleteProductImage = (image: File) => {
+    // Filter out the image from selectedImages
+    const updatedSelectedImages = selectedImages.filter(
+      (selectedImage) => selectedImage !== image
+    );
+
+    // Find the index of the image in the productimages array
+    const imageIndex = selectedImages.findIndex(
+      (selectedImage) => selectedImage === image
+    );
+
+    // If the image is found in the productimages array, remove it
+    if (imageIndex !== -1) {
+      const updatedProductImages = [...formData.productimages];
+      updatedProductImages.splice(imageIndex, 1);
+
+      // Update the state with the updated arrays
+      setSelectedImages(updatedSelectedImages);
+      setFormData((prevData) => ({
+        ...prevData,
+        productimages: updatedProductImages,
+      }));
+    }
+  };
 
   const handlemainimageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -492,11 +518,18 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
                   />
                   <div className="flex gap-2">
                     {selectedImages.map((image, index) => (
-                      <div key={index} className="flex  flex-row h-20 w-20 ">
+                      <div
+                        key={index}
+                        className="flex  flex-row h-20 w-20 relative"
+                      >
                         <img
                           src={URL.createObjectURL(image)}
                           alt={`Image ${index + 1}`}
                           className="object-cover rounded h-full w-full"
+                        />
+                        <Delete
+                          className="text-red-700 absolute "
+                          onClick={() => deleteProductImage(image)}
                         />
                       </div>
                     ))}
