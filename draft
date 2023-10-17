@@ -29,6 +29,80 @@ const [imagePreview, setImagePreview] = useState<string | null>(null);
 status;
 
 
+<div className=" flex-wrap flex gap-5 w-full ">
+        {/* Images */}
+        {/*info div  */}
+        <div
+          className="flex bg-white shadow-custom gap-2 p-5  border-t border-red-500 rounded "
+          style={{
+            flex: "70vw",
+            margin: "auto",
+            flexWrap: "wrap",
+            flexDirection: "row",
+          }}
+        >
+          <div className="flex flex-col gap-4 ">
+            <div className=" ">
+              <img
+                src={`data:image/jpeg;base64, ${productImages[selectedImageIndex]}`}
+                className="h-96 w-full object-cover rounded-md border border-red-500"
+                alt=""
+              />
+            </div>
+            <div className="flex gap-4">
+              {productImages?.map((image: any, index: number) => (
+                <img
+                  key={index}
+                  src={`data:image/jpeg;base64, ${image}`}
+                  className={
+                    "h-16 w-16 object-cover rounded-md bg-gray-100 cursor-pointer" +
+                    (index === selectedImageIndex
+                      ? " border-2 border-secondary-orange"
+                      : "")
+                  }
+                  alt=""
+                  onClick={() => setSelectedImageIndex(index)}
+                />
+              ))}
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+          <button className="p-2 rounded-full bg-gray-200">
+                {" "}
+                <WhatsApp className="text-green-500" />{" "}
+              </button>
+              <button className="p-2 rounded-full bg-gray-200 ">
+                {" "}
+                <Facebook className="text-blue-500" />{" "}
+              </button>
+              <button className="p-2 rounded-full bg-gray-200">
+                {" "}
+                <YouTube className="text-red-500" />{" "}
+              </button>
+              <button className="p-2 rounded-full bg-gray-200">
+                {" "}
+                <Phone />{" "}
+              </button>
+
+
+
+
+
+
+
+
+
+
+
 
 
 import { createSlice } from '@reduxjs/toolkit'

@@ -53,7 +53,6 @@ const Landing = () => {
           <Minslider />
           <Popular />
           <AnotherSlider />
-          <TextAnimation />
         </div>
       </div>
     </div>
