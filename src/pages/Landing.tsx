@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { setUser } from "../Redux/slices/AuthSlice";
 import Minslider from "../components/landing/minislider";
 import AnotherSlider from "../components/landing/AotherSlider";
-import TextAnimation from "../components/landing/AnimatedText";
+import Filters from "../constants/Filters";
 // import axios from "axios";
 
 const Landing = () => {
@@ -46,13 +46,21 @@ const Landing = () => {
   }, []);
   return (
     <div>
-      <div className="flex parent ">
-        <Sidebar />
-        <div className="flex-1 mx-auto  my-body ">
-          <ImageSlider />
-          <Minslider />
-          <Popular />
-          <AnotherSlider />
+      <div className="">
+        <div className="flex parent ">
+          <Sidebar />
+          <div className="flex-1 mx-auto  my-body ">
+            <ImageSlider />
+          </div>
+        </div>
+        <AnotherSlider />
+
+        <div className="flex parent">
+          <Filters />
+          <div className="flex-1 mx-auto  my-body ">
+            <Minslider />
+            <Popular />
+          </div>
         </div>
       </div>
     </div>

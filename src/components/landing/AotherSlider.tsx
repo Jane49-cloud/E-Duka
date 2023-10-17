@@ -62,7 +62,7 @@ function AnotherSlider() {
         {clonedCategories.map((item, index) => (
           <div
             key={index}
-            className="flex bg-primary-orange text-white rounded shadow-custom p-4 gap-3"
+            className="flex bg-primary-orange text-white rounded shadow-custom p-4 gap-3 w-32"
             style={{
               flex: "0 0 auto",
               margin: "0 8px",

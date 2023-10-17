@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,17 +8,19 @@ import { getSingleProduct } from "../../Redux/hooks/Ads.actions";
 import { ProductData } from "../../interface/common";
 import {
   Facebook,
-  Height,
+  Favorite,
   Phone,
+  Reviews,
   WhatsApp,
   YouTube,
 } from "@mui/icons-material";
 import { Avatar } from "antd";
+import { Rating } from "@mui/material";
 
 const ProductInfo = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [product, setProduct] = useState<ProductData | null>(null);
-  const [productImages, setProductImages] = useState<any[]>([]); // Replace 'any' with the actual type of your product images
+  const [productImages, setProductImages] = useState<any[]>([]);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -91,6 +93,33 @@ const ProductInfo = () => {
             </div>
           </div>
         </div>
+
+        <div className="flex flex-col">
+          <div className="border border-gray-300 p-2 m-2 rounded">
+            <h1> Description:</h1>
+            <p className="text-gray-600">{product?.productdescription}</p>
+          </div>
+        </div>
+        <div className="border border-gray-300 p-2 m-2 rounded">
+          <h1> Location:</h1>
+          <p className="text-gray-600">Nairobi Area</p>
+        </div>
+
+        <div className="flex gap-5 items-center">
+          <div>
+            <Favorite className="text-secondary-orange font-bold  animate-pulse" />
+            <span className="text-gray-500">20</span>
+          </div>
+
+          <div>
+            <Reviews className="text-primary-orange font-bold " />
+            <span className="text-gray-500">20</span>
+          </div>
+          <div>
+            <Rating className="text-secondary-orange font-bold  " />
+            <span></span>
+          </div>
+        </div>
       </div>
 
       {/* Part 2 */}
@@ -140,7 +169,7 @@ const ProductInfo = () => {
           </div>
         </div>
 
-        <div className="p-3 mt-2 rounded" style={{ height: "auto" }}>
+        <div className="mt-2 rounded" style={{ height: "auto" }}>
           <div className="flex flex-col md:flex-row gap-3">
             <div className="bg-neutral-200 p-6 rounded shadow-custom">
               <h1 className="center">Posted by:</h1>
@@ -176,12 +205,12 @@ const ProductInfo = () => {
             </div>
             <div className="bg-gray-200 p-6 rounded shadow-custom md:flex-1">
               <h1 className="font-bold">Safety tips</h1>
-              <ol className="text-gray-500">
-                <li>Meet seller in Public</li>
-                <li>Avoid cash Transactions</li>
-                <li>Be Keen on unrealistic offers</li>
-                <li>Inspect Product Before payment</li>
-                <li>Ask Questions</li>
+              <ol className=" text-gray-600">
+                <li className="list-decimal">Meet seller in Public</li>
+                <li className="list-decimal">Avoid cash Transactions</li>
+                <li className="list-decimal">Be Keen on unrealistic offers</li>
+                <li className="list-decimal">Inspect Product Before payment</li>
+                <li className="list-decimal">Ask Questions</li>
               </ol>
               <button className="bg-red-600 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover-bg-white transition-colors delay-300">
                 Report Product
@@ -189,7 +218,6 @@ const ProductInfo = () => {
             </div>
           </div>
         </div>
-        <div>Safety measures</div>
       </div>
     </div>
   );
