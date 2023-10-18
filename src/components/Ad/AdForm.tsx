@@ -247,7 +247,7 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
       navigate("/");
       console.log(response);
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.message || "Duplicate product!");
       dispatch(setLoader(false));
     }
     navigate("/");
@@ -322,8 +322,9 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange"
                     placeholder="Enter your Product description"
-                    required
                     minLength={100}
+                    maxLength={200}
+                    required
                   />
                 </div>
                 <div className="mb-2">

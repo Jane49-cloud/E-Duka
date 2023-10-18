@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { Categories } from "../../data/categories";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Category } from "@mui/icons-material";
+import Cart from "../../assets/cart.jpg";
 
 function AnotherSlider() {
   const sliderRef = useRef<HTMLDivElement | null>(null); // Explicitly specify the type
@@ -46,7 +47,7 @@ function AnotherSlider() {
   const clonedCategories = [...Categories, ...Categories, ...Categories];
 
   return (
-    <div className="relative flex items-center mt-10">
+    <div className="relative flex items-center mt-0">
       <MdChevronLeft
         className="opacity-50 cursor-pointer hover:opacity-100"
         onClick={slideLeft}
@@ -62,10 +63,11 @@ function AnotherSlider() {
         {clonedCategories.map((item, index) => (
           <div
             key={index}
-            className="flex bg-primary-orange text-white rounded shadow-custom p-4 gap-3 w-32"
+            className="flex text-white rounded shadow-custom p-4 gap-3 w-32"
             style={{
               flex: "0 0 auto",
-              margin: "0 8px",
+              margin: "0 8px", // Add margin
+              backgroundColor: "#0a2540",
               display:
                 index >= currentIndex &&
                 index < currentIndex + Categories.length
@@ -73,8 +75,11 @@ function AnotherSlider() {
                   : "none",
             }}
           >
-            <Category />
-            <p className="text-sm truncate">{item.name}</p>
+            <div></div>
+            <div>
+              <Category />
+              <p className="text-sm truncate">{item.name}</p>
+            </div>
           </div>
         ))}
       </div>

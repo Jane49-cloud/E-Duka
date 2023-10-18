@@ -41,7 +41,9 @@ const Filters = () => {
     <div className="flex flex-col space-y-4 bg-gray-light mt-5">
       {/* Filter By Category */}
       <div className="bg-gray-100 p-4 ">
-        <label className="font-bold mb-2">Filter by Category</label>
+        <button className="px-3 py-1 bg-secondary-orange text-white cursor-pointer rounded">
+          Filter by Category
+        </button>
         <div className="scrollable-list">
           <ul className="space-y-2">
             {categoryOptions.map((option, index) => (
@@ -52,8 +54,8 @@ const Filters = () => {
       </div>
 
       {/* Filter by Subcategory */}
-      <div className="bg-gray-100 p-4">
-        <label className="font-bold mb-2">Filter by Subcategory</label>
+      {/* <div className="bg-gray-100 p-4">
+        <button >Filter by Subcategory</button>
         <div className="scrollable-list">
           <ul className="space-y-2">
             {subcategoryOptions.map((option, index) => (
@@ -61,11 +63,13 @@ const Filters = () => {
             ))}
           </ul>
         </div>
-      </div>
+      </div> */}
 
       {/* Filter by Budget */}
       <div className="bg-gray-100 p-4 ">
-        <label className="font-bold mb-2">Filter by Budget</label>
+        <button className="px-3 py-1 bg-secondary-orange text-white cursor-pointer rounded">
+          Filter by Budget
+        </button>
         <div className="scrollable-list">
           <ul className="space-y-2">
             {budgetOptions.map((option, index) => (
@@ -77,7 +81,9 @@ const Filters = () => {
 
       {/* Filter by Brands */}
       <div className="bg-gray-100 p-4 ">
-        <label className="font-bold mb-2">Filter by Brands</label>
+        <button className="px-3 py-1 bg-secondary-orange text-white cursor-pointer rounded">
+          Filter by Brand
+        </button>
         <div className="scrollable-list">
           <ul className="space-y-2">
             {brandOptions.map((option, index) => (

@@ -10,6 +10,7 @@ import { setUser } from "../Redux/slices/AuthSlice";
 import Minslider from "../components/landing/minislider";
 import AnotherSlider from "../components/landing/AotherSlider";
 import Filters from "../constants/Filters";
+import Packages from "../components/packages";
 // import axios from "axios";
 
 const Landing = () => {
@@ -60,6 +61,7 @@ const Landing = () => {
           <div className="flex-1 mx-auto  my-body ">
             <Minslider />
             <Popular />
+            <Packages />
           </div>
         </div>
       </div>

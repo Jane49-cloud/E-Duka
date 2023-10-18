@@ -15,7 +15,7 @@ import AdsForm from "../components/Ad/AdForm";
 import Footer from "../constants/footer";
 import Contact from "../pages/Contact";
 import Services from "../pages/services";
-// import { ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import AdInfo from "../pages/AdInfo";
 import Terms from "../pages/Terms";
 import Navbar from "../constants/navbar";
@@ -39,7 +39,7 @@ const Index = () => {
         showRegister={ShowRegister}
         SetShowRegister={setShowRegister}
       />
-      {/* <ToastContainer /> */}
+      <ToastContainer position="top-center" />
       <AdsForm showAdsForm={showAdsForm} setShowAdsForm={setShowAdsForm} />
       <div className="mt-40">
         <Routes>

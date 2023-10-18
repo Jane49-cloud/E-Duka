@@ -18,7 +18,7 @@ const Popular = () => {
     try {
       dispatch(setLoader(true));
       const response = await FetchProducts();
-      toast.success("ads fetched successfully");
+      // toast.success("ads fetched successfully");
       dispatch(setLoader(false));
       dispatch(setAds(response.Data));
       // console.log(response.Data);
