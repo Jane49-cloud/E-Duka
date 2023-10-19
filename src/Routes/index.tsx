@@ -19,6 +19,7 @@ import { ToastContainer } from "react-toastify";
 import AdInfo from "../pages/AdInfo";
 import Terms from "../pages/Terms";
 import Navbar from "../constants/navbar";
+import AdsPage from "../pages/AdsPage";
 
 const Index = () => {
   const [ShowLogin, setShowLogin] = useState<boolean>(false);
@@ -46,6 +47,7 @@ const Index = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/Dashboard" element={<UserDashboard />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/ads" element={<AdsPage />} />
           <Route path="/terms_and_conditions" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />

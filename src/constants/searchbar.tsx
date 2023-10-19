@@ -26,12 +26,14 @@
 // export default Searchbar;
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar: React.FC = () => {
   const [category, setCategory] = useState<string>("all");
   const [subcategory, setSubcategory] = useState<string>("all");
   const [minPrice, setMinPrice] = useState<string>("0");
   const [maxPrice, setMaxPrice] = useState<string>("100000000");
+  const navigate = useNavigate();
 
   // Handle category change event to update subcategories
   const handleCategoryChange = (
@@ -55,7 +57,12 @@ const SearchBar: React.FC = () => {
       className="flex items-center gap-10 shadow-custom p-3
      bg-primary-orange w-screen"
     >
-      <button className="p-2 bg-white rounded w-[200px]">View All</button>
+      <button
+        className="p-2 bg-white rounded w-[200px]"
+        onClick={() => navigate("/ads")}
+      >
+        View All
+      </button>
 
       <select
         id="categorySelect"

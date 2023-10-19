@@ -124,7 +124,7 @@ const ProductInfo = () => {
 
       {/* Part 2 */}
       <div className="md:flex-1 p-4">
-        <div className="w-full bg-gray-light h-32 shadow-custom text-center flex flex-col rounded">
+        <div className="w-full bg-white h-32  price text-center flex flex-col rounded">
           <h2>Price:</h2>
           <p className="text-2xl font-bold text-secondary-orange">
             {" "}
