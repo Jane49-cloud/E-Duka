@@ -9,6 +9,7 @@ import { axiosService } from "../Redux/helpers/axios";
 import { HiLockClosed } from "react-icons/hi";
 import { setOpener } from "../Redux/slices/opener";
 import { ChevronRightTwoTone } from "@mui/icons-material";
+import { TopProducts } from "../data/topproducts";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -65,23 +66,17 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className=" rounded">
+    <div className="rounded">
       <div
-        className=" px-4   shadow-custom rounded m-3 overflow-y-auto pt-10 my-sidebar  no-scrollbar"
-        style={{
-          height: "55vh",
-          maxHeight: "55vh",
-          position: "sticky",
-          top: "0",
-          backgroundColor: "whitesmoke",
-        }}
+        className="px-4  h-[55vh] max-h-[55vh]  sticky top-0 bg-slate-200 shadow-custom rounded overflow-y-auto my-sidebar no-scrollbar "
       >
-        <ul className="pt-4">
+        <ul className="py-1">
+          <h1 className="my-3 text-stone-600 text-sm font-bold">Top Categories</h1>
           {categories.map((Menu: categoryData, index: number) => (
             <div>
               <li
                 key={index}
-                className={`flex  rounded-md p-2  cursor-pointer hover:bg-white  text-sm items-center gap-x-4  border-b-2 border-gray-50
+                className={`flex  rounded-md cursor-pointer hover:bg-white  text-sm items-center gap-x-4
               ${"mt-2"} ${index === 0 && "bg-light-white"} `}
                 onMouseOver={() => {
                   handleCategoryMouseOver(Menu.categoryname);
@@ -90,19 +85,63 @@ const Sidebar = () => {
               >
                 <img
                   src={Menu.categoryimage}
-                  className="h-6 w-6 "
+                  className="h-3 w-3 "
                   object-cover
                 />
                 <span
-                  className={`${!open && ""} origin-left duration-200 flex-1`}
+                  className={`${!open && ""} origin-left duration-200 text-xs flex-1 text-stone-500`}
                 >
                   {Menu.categoryname}
+                </span>
+
+                {/* <ChevronRightTwoTone className="ml-auto" /> */}
+              </li>
+            </div>
+          ))}
+        </ul>
+        <ul className="">
+          <h1 className="mt-3 text-stone-600 text-sm font-bold">Top Sellers</h1>
+          {categories.map((Menu: categoryData, index: number) => (
+            <div>
+              <li
+                key={index}
+                className={`flex  rounded-md cursor-pointer hover:bg-white  text-sm items-center gap-x-4
+              ${"mt-2"} ${index === 0 && "bg-light-white"} `}
+                onMouseOver={() => {
+                  handleCategoryMouseOver(Menu.categoryname);
+                  setSubmenuOpen(true);
+                }}
+              >
+                <img
+                  src={Menu.categoryimage}
+                  className="h-3 w-3 "
+                  object-cover
+                />
+                <span
+                  className={`${!open && ""} origin-left duration-200 text-xs flex-1 text-stone-500`}
+                >
+                  <h1 className="font-bold">John Doe</h1>
+                  <h3 className="text-xs">(273 products)</h3>
                 </span>
 
                 <ChevronRightTwoTone className="ml-auto" />
               </li>
             </div>
           ))}
+        </ul>
+        <ul className="flex flex-col py-2">
+          <h1 className=" text-stone-600 text-sm font-bold">Top Products</h1>
+          <div className="flex flex-row no-scrollbar overflow-x-scroll w-fit">
+
+            {
+              TopProducts.map((top_product) => (
+                <div className="flex flex-col bg-slate-300 p-1 w-[50px]  rounded-[5px] mr-3">
+                  <img className=" " src={top_product.image} alt="" />
+                  <h5 className=" text-ellipsis line-clamp-1 text-stone-500 text-[10px]">{top_product.name}</h5>
+                </div>
+              ))
+            }
+          </div>
         </ul>
       </div>
       {submenuOpen && (
