@@ -80,7 +80,7 @@ const ImageSlider = () => {
                   placeholder=""
                   className="p-1 rounded text-dark"
                 />
-                <button className="bg-primary-orange p-2 rounded cursor-pointer hover:bg-secondary-orange font-semibold text-white text-lg">
+                <button className="bg-primary-orange p-2 rounded cursor-pointer hover:bg-secondary-orange font-semibold text-gray-500 text-lg">
                   Search
                 </button>
               </div>
@@ -118,27 +118,27 @@ const ImageSlider = () => {
         className="w-72 , rounded"
         style={{ height: "55vh", backgroundColor: "#0a2540", fill: "#425466" }}
       >
-        <div className="flex p-2 text-white gap-1  border-b-2 border-blue-950 shadow-custom ">
+        <div className="flex p-2 text-gray-500 gap-1  border-b-2 border-blue-950 shadow-custom ">
           <button className=" p-2 border-2  border-white rounded-full h-12 w-12">
-            <FaQuestion className="text-white ml-1" />
+            <FaQuestion className="text-gray-500 ml-1" />
           </button>
           <div>
             <p className="uppercase">Help center</p>
             <p className="text-sm">Guide to customer care</p>
           </div>
         </div>
-        <div className="flex p-2 text-white gap-1 border-b-2 border-blue-950 shadow-custom">
+        <div className="flex p-2 text-gray-500 gap-1 border-b-2 border-blue-950 shadow-custom">
           <button className=" p-2 border-2  border-white rounded-full h-12 w-12">
-            <FaServicestack className="text-white ml-1" />
+            <FaServicestack className="text-gray-500 ml-1" />
           </button>
           <div>
             <p className="uppercase">Our Services</p>
             <p className="text-sm">Best Advertisement platform</p>
           </div>
         </div>
-        <div className="flex p-2 text-white gap-1 border-b-2 border-blue-950 shadow-custom">
+        <div className="flex p-2 text-gray-500 gap-1 border-b-2 border-blue-950 shadow-custom">
           <button className=" p-2 border-2  border-white rounded-full h-12 w-12">
-            <FaRegMoneyBillAlt className="text-white ml-1" />
+            <FaRegMoneyBillAlt className="text-gray-500 ml-1" />
           </button>
           <div>
             <p className="uppercase">Make Money</p>

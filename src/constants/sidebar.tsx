@@ -67,12 +67,13 @@ const Sidebar = () => {
   return (
     <div className=" rounded">
       <div
-        className=" px-4  bg-gray-light m-3 overflow-y-auto pt-10 my-sidebar  no-scrollbar"
+        className=" px-4   shadow-custom rounded m-3 overflow-y-auto pt-10 my-sidebar  no-scrollbar"
         style={{
           height: "55vh",
           maxHeight: "55vh",
           position: "sticky",
           top: "0",
+          backgroundColor: "whitesmoke",
         }}
       >
         <ul className="pt-4">
@@ -104,13 +105,12 @@ const Sidebar = () => {
           ))}
         </ul>
       </div>
-      {/* {submenuOpen && (
+      {submenuOpen && (
         <div
-          className="bg-gray-light absolute top-3 h-full w-72 z-20 mt-20 p-20 border-l border-gray-400"
+          className="submenu"
           style={{
-            left: "18vw",
-            height: "100vh",
-            maxHeight: "100vh",
+            left: "20vw",
+
             // position: "sticky",
           }}
           onMouseLeave={() => setSubmenuOpen(false)}
@@ -133,7 +133,7 @@ const Sidebar = () => {
             </ul>
           )}
         </div>
-      )} */}
+      )}
 
       {/* this is where the sidebar menu will sit when on smaller devices */}
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosService = axios.create({
-  baseURL: "http://192.168.0.112:8000",
+  baseURL: "http://13.245.28.232:8000",
 });
 
 // Add a response interceptor to handle errors

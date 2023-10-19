@@ -63,11 +63,11 @@ function AnotherSlider() {
         {clonedCategories.map((item, index) => (
           <div
             key={index}
-            className="flex text-white rounded shadow-custom p-4 gap-3 w-32"
+            className="flex text-gray-400 rounded shadow-custom p-4 gap-3 w-32 text-center"
             style={{
               flex: "0 0 auto",
               margin: "0 8px", // Add margin
-              backgroundColor: "#0a2540",
+              backgroundColor: "#2c3e50",
               display:
                 index >= currentIndex &&
                 index < currentIndex + Categories.length

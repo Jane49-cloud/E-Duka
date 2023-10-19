@@ -52,14 +52,16 @@ const SearchBar: React.FC = () => {
 
   return (
     <div
-      className="flex items-center gap-20 shadow-custom p-3
+      className="flex items-center gap-10 shadow-custom p-3
      bg-primary-orange w-screen"
     >
+      <button className="p-2 bg-white rounded w-[200px]">View All</button>
+
       <select
         id="categorySelect"
         value={category}
         onChange={handleCategoryChange}
-        className="p-2 border rounded w-[250px] bg-white outline-none shadow-custom "
+        className="p-2 border rounded w-[200px] bg-white outline-none shadow-custom "
       >
         <option value="all">Select Category</option>
         <option value="electronics">Electronics</option>
@@ -71,7 +73,7 @@ const SearchBar: React.FC = () => {
         id="subcategorySelect"
         value={subcategory}
         onChange={(e) => setSubcategory(e.target.value)}
-        className="p-2 border rounded  w-[250px] bg-white outline-none shadow-custom "
+        className="p-2 border rounded  w-[200px] bg-white outline-none shadow-custom "
       >
         <option value="all">Select Subcategory</option>
         {/* Populate subcategories based on the selected category using JavaScript */}
@@ -81,7 +83,7 @@ const SearchBar: React.FC = () => {
         id="minPriceSelect"
         value={minPrice}
         onChange={(e) => setMinPrice(e.target.value)}
-        className="p-2 border rounded w-[250px] bg-white outline-none shadow-custom "
+        className="p-2 border rounded w-[200px] bg-white outline-none shadow-custom "
       >
         <option value="">Select Min Price:</option>{" "}
         <option value="200">200</option>
@@ -94,13 +96,26 @@ const SearchBar: React.FC = () => {
         id="maxPriceSelect"
         value={maxPrice}
         onChange={(e) => setMaxPrice(e.target.value)}
-        className="p-2 border rounded w-[250px] bg-white outline-none shadow-custom "
+        className="p-2 border rounded w-[200px] bg-white outline-none shadow-custom "
       >
         <option value="100000000">select max price </option>
         <option value="100000000">100,000,000</option>
         <option value="200000000">200,000,000</option>
         <option value="400000000">400,000,000</option>
         <option value="800000000">800,000,000</option>
+        {/* Add more price options as needed */}
+      </select>
+      <select
+        id="brand"
+        // value={maxPrice}
+        onChange={(e) => setMaxPrice(e.target.value)}
+        className="p-2 border rounded w-[200px] bg-white outline-none shadow-custom "
+      >
+        <option value="All">select brand</option>
+        <option value="100000000">Innovia</option>
+        <option value="200000000">Innovia</option>
+        <option value="400000000">Innovia</option>
+        <option value="800000000">Innovia</option>
         {/* Add more price options as needed */}
       </select>
 
