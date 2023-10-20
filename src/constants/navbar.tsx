@@ -82,10 +82,10 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
 
   return (
     <nav
-      className={`w-full  flex flex-col items-center fixed top-0 z-20 ${
-        scrolled ? "bg-black" : "bg-black"
+      className={`w-full  flex flex-col items-center justify-center p-3  fixed top-0 z-20 ${
+        scrolled ? "bg-white" : "bg-white"
       }`}
-      style={{ marginBottom: "2px" }}
+      // style={{ marginBottom: "2px" }}
     >
       <div className="w-full flex  justify-between items-center max-w-7xl mx-auto">
         <div className="flex gap-2 items-center ">
@@ -99,7 +99,7 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
           />
           <Link
             to="/"
-            className="flex flex-col items-center py-2"
+            className="flex flex-col items-center "
             onClick={() => {
               setActive("");
               window.scrollTo(0, 0);
@@ -108,7 +108,7 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
             <img
               src={logo}
               alt="logo"
-              className=" p-0 m-0 object-contain bg-green-500 h-[50px] w-fit"
+              className=" p-0 m-0 object-contain rounded h-[45px]"
             />
             <p className="text-slate-600 text-xs italic">your one stop shop</p>
           </Link>
@@ -127,8 +127,8 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
             <li
               key={nav.name}
               className={`${
-                active === nav.name ? "text-primary-orange" : "text-white"
-              } capitalize hover:text-white text-[18px] font-medium cursor-pointer`}
+                active === nav.name ? "text-primary-orange" : "text-black"
+              } capitalize hover:text-primary-orange text-[18px] font-medium cursor-pointer`}
               onClick={() => setActive(nav.name)}
             >
               <Link to={nav.url}>{nav.name}</Link>

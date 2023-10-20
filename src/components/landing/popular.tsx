@@ -1,37 +1,18 @@
 import { useEffect } from "react";
-// import { Accordions } from "../../data/slider";
-import Productcard from "../Global/Productcard";
-import { toast } from "react-toastify";
-import { setLoader } from "../../Redux/slices/LoaderSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { FetchProducts } from "../../Redux/hooks/Ads.actions";
-// import Photo from "../../assets/fotor.jpg";
+import { FetchProductsAsync } from "../../Redux/slices/AdsSlice";
+import Productcard from "../Global/Productcard";
 import { ProductData } from "../../interface/common";
-import { setAds } from "../../Redux/slices/AdsSlice";
+import { AppDispatch } from "../../Redux/store";
 
+import Loader from "../../constants/loader";
 const Popular = () => {
   const Ads = useSelector((state: any) => state.AllAds.Ads);
-
-  const dispatch = useDispatch();
-
-  const getData = async () => {
-    try {
-      dispatch(setLoader(true));
-      const response = await FetchProducts();
-      // toast.success("ads fetched successfully");
-      dispatch(setLoader(false));
-      dispatch(setAds(response.Data));
-      // console.log(response.Data);
-    } catch (error: any) {
-      dispatch(setLoader(false));
-      toast.error(error.message);
-    }
-  };
+  const isLoading = useSelector((state: any) => state.AllAds.isLoading);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    getData();
-    // console.log(Ads);
-    // console.log(Ads.mainimage);
+    dispatch(FetchProductsAsync());
   }, [dispatch]);
 
   return (
@@ -44,26 +25,24 @@ const Popular = () => {
       </div>
 
       <div className="responsive">
-        {Ads?.map((product: ProductData) => (
-          <Productcard
-            key={product.producttid}
-            // image={Photo}
-            image={`data:image/jpeg;base64, ${product.mainimage}`}
-            name={product?.productname}
-            price={product.productprice}
-            // seller={product.seller}
-            seller="John Doe"
-            // description={product.productdescription}
-            id={product.producttid}
-          />
-          // <div className="responsive-item  " key={image.id}>
-          //   <img src={image.img} alt="" className=" img-responsive" />
-          //   <div className=" bg-gray-light p-4">
-          //     <p>Image name</p>
-          //     <p>image Price </p>
-          //   </div>
-          // </div>
-        ))}
+        {isLoading ? (
+          // Show loading indicator or message
+          <div>
+            <Loader />
+          </div>
+        ) : (
+          // Render products if not loading
+          Ads.map((product: ProductData) => (
+            <Productcard
+              key={product.producttid}
+              image={`data:image/jpeg;base64, ${product.mainimage}`}
+              name={product.productname}
+              price={product.productprice}
+              seller="John Doe"
+              id={product.producttid}
+            />
+          ))
+        )}
       </div>
     </div>
   );

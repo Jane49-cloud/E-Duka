@@ -32,3 +32,15 @@ export const getSingleProduct = async (id: any): Promise<any> => {
     throw new Error();
   }
 };
+
+export const fetchOurProducts = async () => {
+  // Your API call using Axios
+  const response = await axiosService.get("/products/getproducts");
+  return response;
+};
+
+export const fetchOurSingleProduct = async (id: any) => {
+  // Your API call using Axios
+  const response = await axiosService.get(`/products/getproducts/single/${id}`);
+  return response;
+};

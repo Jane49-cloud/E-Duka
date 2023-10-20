@@ -8,6 +8,7 @@ import subcategoryReducer from "./slices/subcategorySlice";
 import subcategoriesReducer from "./slices/subcategories";
 import { LoaderSlice } from "./slices/LoaderSlice";
 import { OpenerSlice } from "./slices/opener";
+import { useDispatch } from "react-redux";
 
 const store = configureStore({
   reducer: {
@@ -25,4 +26,6 @@ const store = configureStore({
   devTools: true,
 });
 
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
 export default store;

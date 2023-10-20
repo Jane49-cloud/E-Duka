@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
-import { setLoader } from "../../Redux/slices/LoaderSlice";
-import { getSingleProduct } from "../../Redux/hooks/Ads.actions";
-import { ProductData } from "../../interface/common";
+import {
+  FetchProduct,
+  FetchProductImages,
+  FetchProductSeller,
+} from "../../Redux/slices/adSlice";
 import {
   Facebook,
   Favorite,
@@ -16,32 +17,28 @@ import {
 } from "@mui/icons-material";
 import { Avatar } from "antd";
 import { Rating } from "@mui/material";
+import { AppDispatch } from "../../Redux/store";
+import Loader from "../../constants/loader";
 
 const ProductInfo = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [product, setProduct] = useState<ProductData | null>(null);
-  const [productImages, setProductImages] = useState<any[]>([]);
 
-  const dispatch = useDispatch();
+  const { ad, adImages, seller, isLoading } = useSelector(
+    (state: any) => state.ad
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
 
-  const getData = async () => {
-    try {
-      dispatch(setLoader(true));
-      const response = await getSingleProduct(id);
-      dispatch(setLoader(false));
-      toast.success(response.message);
-      setProduct(response.productdata);
-      setProductImages(response.images);
-    } catch (error: any) {
-      toast.error(error);
-      dispatch(setLoader(false));
-    }
-  };
-
   useEffect(() => {
-    getData();
-  }, [id]);
+    dispatch(FetchProduct(id));
+    dispatch(FetchProductImages(id));
+    dispatch(FetchProductSeller(id));
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex flex-col md:flex-row gap-5 p-5 bg-gray-light mb-10 h-auto">
@@ -49,16 +46,15 @@ const ProductInfo = () => {
       <div className="md:flex-1">
         <div>
           <h2 className="text-center text-2xl capitalize font-bold">
-            {product?.productname}
+            {ad?.productname}
           </h2>
           <div className="flex flex-col gap-2 md:flex-row md:gap-5">
             <span>Posted on: 22 April 2023</span>
             <span>
-              Category:{" "}
-              <i className="text-primary-orange">{product?.category}</i>
+              Category: <i className="text-primary-orange">{ad?.category}</i>
             </span>
             <span>
-              Brand: <i className="text-primary-orange">{product?.brand}</i>{" "}
+              Brand: <i className="text-primary-orange">{ad?.brand}</i>{" "}
             </span>
           </div>
         </div>
@@ -69,13 +65,13 @@ const ProductInfo = () => {
             <div className="flex flex-col gap-4">
               <div>
                 <img
-                  src={`data:image/jpeg;base64, ${productImages[selectedImageIndex]}`}
+                  src={`data:image/jpeg;base64, ${adImages[selectedImageIndex]}`}
                   className="main w-full"
                   alt=""
                 />
               </div>
               <div className="flex gap-4">
-                {productImages?.map((image: any, index: number) => (
+                {adImages.map((image: any, index: number) => (
                   <img
                     key={index}
                     src={`data:image/jpeg;base64, ${image}`}
@@ -97,7 +93,7 @@ const ProductInfo = () => {
         <div className="flex flex-col">
           <div className="border border-gray-300 p-2 m-2 rounded">
             <h1> Description:</h1>
-            <p className="text-gray-600">{product?.productdescription}</p>
+            <p className="text-gray-600">{ad?.productdescription}</p>
           </div>
         </div>
         <div className="border border-gray-300 p-2 m-2 rounded">
@@ -128,7 +124,7 @@ const ProductInfo = () => {
           <h2>Price:</h2>
           <p className="text-2xl font-bold text-secondary-orange">
             {" "}
-            Ksh {product?.productprice}
+            Ksh {ad?.productprice}
           </p>
           <button className="bg-black-200 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover:bg-white transition-colors delay-300">
             Fixed Price
@@ -179,9 +175,9 @@ const ProductInfo = () => {
                 </div>
                 <div>
                   <div>
-                    <p>Name: Jane Doe</p>
-                    <p>Phone: 0791088884</p>
-                    <p>Email: janedoe@gmail.com</p>
+                    <p>Name: {seller.seller_name}</p>
+                    <p>Phone:{seller.seller_phonenumber} </p>
+                    <p>Email:{seller.email} </p>
                     <button className="bg-black-200 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover:bg-white transition-colors delay-300">
                       View Shop
                     </button>
