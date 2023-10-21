@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import {
@@ -20,8 +21,10 @@ import { Rating } from "@mui/material";
 import { AppDispatch } from "../../Redux/store";
 import Loader from "../../constants/loader";
 
+
 const ProductInfo = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const navigate = useNavigate()
 
   const { ad, adImages, seller, isLoading } = useSelector(
     (state: any) => state.ad
@@ -178,7 +181,7 @@ const ProductInfo = () => {
                     <p>Name: {seller.seller_name}</p>
                     <p>Phone:{seller.seller_phonenumber} </p>
                     <p>Email:{seller.email} </p>
-                    <button className="bg-black-200 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover:bg-white transition-colors delay-300">
+                    <button className="bg-black-200 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover:bg-white transition-colors delay-300" onClick={()=>navigate(`/seller/store/${ad.userid}`)}> 
                       View Shop
                     </button>
                   </div>

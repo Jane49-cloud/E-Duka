@@ -33,3 +33,18 @@ export const currentUser = async () => {
     throw new Error(error.message);
   }
 };
+
+export const loggedInUser = async () => {
+  const response = await axiosService.get("/user/auth/getuser");
+  return response;
+};
+
+export const RegistrationOfUser = async (formdata: any) => {
+  const response = await axiosService.post("/user/auth/signup", formdata);
+  return response;
+};
+
+export const LogginOfUser = async (formdata: any) => {
+  const response = await axiosService.post("/user/auth/signin", formdata);
+  return response;
+};

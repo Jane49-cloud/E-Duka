@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ProductData } from "../../interface/common";
-import { fetchOurProducts } from "../hooks/Ads.actions";
+import { fetchOurProducts, fetchSellersProduct } from "../hooks/Ads.actions";
+import { toast } from "react-toastify";
 
 interface ProductsState {
   Ads: ProductData[];
@@ -18,6 +19,7 @@ export const FetchProductsAsync = createAsyncThunk(
   async () => {
     try {
       const response = await fetchOurProducts();
+      console.log(response);
       return response.data.Data;
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -26,6 +28,19 @@ export const FetchProductsAsync = createAsyncThunk(
   }
 );
 
+export const FetchSellerProducts = createAsyncThunk(
+  "ads/fetchsellerproducts",
+  async (id: any) => {
+    try {
+      const response = await fetchSellersProduct(id);
+      console.log(response);
+      return response.data.Data;
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      throw error; // Re-throw the error to be caught by the rejection handler
+    }
+  }
+);
 const productsSlice = createSlice({
   name: "Products", // Renamed the slice to "Products"
   initialState,
@@ -47,6 +62,18 @@ const productsSlice = createSlice({
       .addCase(FetchProductsAsync.rejected, (state, action) => {
         console.log(action);
         state.isLoading = false;
+      });
+    builder
+      .addCase(FetchSellerProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(FetchSellerProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.Ads = action.payload;
+      })
+      .addCase(FetchSellerProducts.rejected, (state) => {
+        state.isLoading = false;
+        toast.error("Error fetching seller products. Please try again later.");
       });
   },
 });

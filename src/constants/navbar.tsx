@@ -19,10 +19,11 @@ import { BiSolidBellRing } from "react-icons/bi";
 import { setOpener } from "../Redux/slices/opener";
 import userphoto from "../assets/user.jpeg";
 import Searchbar from "./searchbar";
-import { setLoader } from "../Redux/slices/LoaderSlice";
-import { setUser } from "../Redux/slices/AuthSlice";
-import { currentUser } from "../Redux/hooks/user.actions";
-import { toast } from "react-toastify";
+// import { setLoader } from "../Redux/slices/LoaderSlice";
+import { getLoggedInUser, setUser } from "../Redux/slices/AuthSlice";
+import { AppDispatch } from "../Redux/store";
+// import { currentUser } from "../Redux/hooks/user.actions";
+// import { toast } from "react-toastify";
 
 type NavbarProps = {
   SetShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,32 +35,13 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: any) => state.auth.user);
   const { open } = useSelector((state: any) => state.opener);
   const userToken = useSelector((state: any) => state.auth.userToken);
 
-  const getUser = async () => {
-    try {
-      dispatch(setLoader(true));
-      const response = await currentUser();
-      // toast.success("user Fetched successfully");
-      // console.log(response.data.Data);
-      dispatch(setUser(response.data.Data));
-      dispatch(setLoader(false));
-    } catch (error: any) {
-      toast.error(error.message);
-    }
-  };
-
-  // useEffect(() => {
-  //   console.log(login());
-  // }, []);
-
   useEffect(() => {
-    if (userToken) {
-      getUser();
-    }
+    dispatch(getLoggedInUser());
   }, [userToken]);
 
   useEffect(() => {
@@ -79,6 +61,7 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
 
   useEffect(() => {}, [user]);
   const [userSmallnav, setUserSmallNav] = useState(false);
+  console.log(user);
 
   return (
     <nav

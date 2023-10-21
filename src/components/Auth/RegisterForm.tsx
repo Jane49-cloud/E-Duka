@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import close from "../../assets/close.png";
 import { toast } from "react-toastify";
-import { setLoader } from "../../Redux/slices/LoaderSlice";
-import { RegisterUser } from "../../Redux/hooks/user.actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { RegisteringUser } from "../../Redux/slices/AuthSlice";
+import { AppDispatch } from "../../Redux/store";
+import Loader from "../../constants/loader";
 
-// Define the types for your props
 type RegisterFormProps = {
   showRegister: boolean;
   SetShowRegister: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,14 +19,15 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   SetShowLogin,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
+  const isLoading = useSelector((state: any) => state.auth.isLoading);
+  const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({
     firstname: "",
     middlename: "",
     lastname: "",
     email: "",
     phone: "",
-    userimage: "userimage",
+    userimage: "",
     location: "location",
     password: "",
     confirmPassword: "",
@@ -37,6 +38,22 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      let concatenatedImages = "";
+      for (const file of files) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const base64Data = e.target!.result as string;
+          concatenatedImages += base64Data;
+        };
+        reader.readAsDataURL(file);
+      }
+      setFormData({ ...formData, userimage: concatenatedImages });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,20 +75,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       return;
     }
 
-    try {
-      dispatch(setLoader(true));
-      const response = await RegisterUser(formData);
-      dispatch(setLoader(false));
-      toast.success("Successfully registered");
-      console.log(response);
-
-      SetShowRegister(false);
-      SetShowLogin(true);
-    } catch (error: any) {
-      toast.error(error.message);
-      dispatch(setLoader(false));
-    }
-    // clear form data after submission
+    dispatch(RegisteringUser(formData));
+    SetShowRegister(false);
+    SetShowLogin(true);
 
     setFormData({
       firstname: "",
@@ -84,23 +90,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       password: "",
       confirmPassword: "",
     });
-
-    // try {
-    //   const response = await axios.post(
-    //     "http://13.245.255.54:8000/user/auth/signup",
-    //     formData
-    //   );
-
-    // Handle successful registration (e.g., show success message, redirect, etc.)
-    // console.log("Registration successful!", response.data);
-
-    // Close the registration form
-    // SetShowRegister(false);
-    //   } catch (error) {
-    //     // Handle registration error (e.g., display an error message)
-    //     console.error("Registration failed:", error);
-    //   }
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -132,7 +126,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 className="bg-white p-2 px-5 cursor-pointer w-3/6 h-12"
                 onClick={() => {
                   SetShowRegister(false);
-                  SetShowLogin(true); // If you want to switch to the login form
+                  SetShowLogin(true);
                 }}
               >
                 Signin
@@ -140,7 +134,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             </div>
 
             <form
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               className="mx-auto p-4 border rounded-lg shadow-lg mt-4"
             >
               <div className="mb-4">
@@ -243,9 +237,31 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                   onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange"
                 >
-                  <option value="location1">Location 1</option>
-                  <option value="location2">Location 2</option>
+                  <option value="Nairobi">Nairobi</option>
+                  <option value="Thika">Thika</option>
                 </select>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="userimage"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  User Image:
+                </label>
+                <input
+                  type="file"
+                  id="userimage"
+                  name="userimage"
+                  onChange={handleImageChange}
+                  accept="image/*"
+                />
+                {formData.userimage && (
+                  <img
+                    src={formData.userimage}
+                    alt="User Preview"
+                    className="h-16 w-16 mt-2"
+                  />
+                )}
               </div>
               <div className="mb-4">
                 <label
@@ -274,7 +290,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                   The password must be at least 8 characters long{" "}
                 </p>
                 <p className="text-sm text-gray-500 px-2">
-                  Must contain a symbol, a number and an Uppercase Letter
+                  Must contain a symbol, a number, and an Uppercase Letter
                 </p>
               </div>
 
@@ -286,7 +302,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                   Confirm Password:
                   <input
                     type={showPassword ? "text" : "password"}
-                    id="password"
+                    id="confirmPassword"
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
@@ -305,7 +321,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               <button
                 onClick={() => {
                   setShowPassword(false);
-                  handleSubmit;
+                  // handleSubmit(event); // Call the handleSubmit function
                   console.log("Submit button clicked");
                 }}
                 type="submit"

@@ -36,8 +36,8 @@
 
 .responsive-item {
   padding: 2px;
-
   height: 300px;
+  max-width: 270px;
   color: #222;
   font-size: 0.77rem;
   line-height: 1.7;
@@ -178,15 +178,22 @@
 .my-sidebar {
   width: 18vw;
 }
+.my-other-sidebar {
+  width: 15vw;
+}
 
 .my-body {
   width: 75vw;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 767px) {
   /* Hide the sidebar with absolute positioning */
 
   .my-sidebar {
+    display: none;
+  }
+  .my-other-sidebar {
     display: none;
   }
 

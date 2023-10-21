@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import close from "../../assets/close.png";
-import { LoginUser } from "../../Redux/hooks/user.actions";
-import { setLoader } from "../../Redux/slices/LoaderSlice";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+
+import { useDispatch, useSelector } from "react-redux";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-// import { setToken } from "../../Redux/slices/AuthSlice";
+import { LoggingUser } from "../../Redux/slices/AuthSlice";
+import { AppDispatch } from "../../Redux/store";
+import Loader from "../../constants/loader";
 
 // Define the types for your props
 type LoginFormProps = {
@@ -21,8 +21,9 @@ const LoginForm: React.FC<LoginFormProps> = ({
   // showRegister,
   SetShowRegister,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
+  const isLoading = useSelector((state: any) => state.auth.isLoading);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -36,19 +37,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      dispatch(setLoader(true));
-      const response = await LoginUser(formData);
-      dispatch(setLoader(false));
-      toast.success("Successfully logged in");
-      // localStorage.setItem("userToken", response.data.token);
-      console.log(response.data.token);
-
-      SetShowLogin(false);
-    } catch (error: any) {
-      toast.error(error.message);
-      dispatch(setLoader(false));
-    }
+    dispatch(LoggingUser(formData));
+    SetShowLogin(false);
 
     // clear form data after submission
 
@@ -57,6 +47,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
       password: "",
     });
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>

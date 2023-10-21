@@ -47,7 +47,7 @@ function AnotherSlider() {
   const clonedCategories = [...Categories, ...Categories, ...Categories];
 
   return (
-    <div className="relative flex items-center mt-0">
+    <div className="relative flex items-center mt-3">
       <MdChevronLeft
         className="opacity-50 cursor-pointer hover:opacity-100"
         onClick={slideLeft}

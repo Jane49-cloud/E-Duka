@@ -38,7 +38,7 @@ const Filters = () => {
   ];
 
   return (
-    <div className="flex flex-col space-y-4 bg-gray-light mt-5 my-other-sidebar rounded">
+    <div className="flex flex-col space-y-4 bg-gray-light mt-5 my-other-sidebar rounded ">
       {/* Filter By Category */}
       <div className=" p-4 ">
         <button className="px-3 py-1 bg-secondary-orange text-white cursor-pointer rounded mb-2">

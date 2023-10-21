@@ -44,3 +44,11 @@ export const fetchOurSingleProduct = async (id: any) => {
   const response = await axiosService.get(`/products/getproducts/single/${id}`);
   return response;
 };
+
+export const fetchSellersProduct = async (id: any) => {
+  // Your API call using Axios
+  const response = await axiosService.get(
+    `/products/getads/singleuserads?id=${id}`
+  );
+  return response;
+};
