@@ -21,10 +21,9 @@ import { Rating } from "@mui/material";
 import { AppDispatch } from "../../Redux/store";
 import Loader from "../../constants/loader";
 
-
 const ProductInfo = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { ad, adImages, seller, isLoading } = useSelector(
     (state: any) => state.ad
@@ -170,24 +169,47 @@ const ProductInfo = () => {
 
         <div className="mt-2 rounded" style={{ height: "auto" }}>
           <div className="flex flex-col md:flex-row gap-3">
-            <div className="bg-neutral-200 p-6 rounded shadow-custom">
-              <h1 className="center">Posted by:</h1>
-              <div className="flex gap-4">
-                <div>
-                  <Avatar className="h-24 w-24" />
+            <div className="   price" style={{ borderRadius: "0.25rem" }}>
+              <h1 className="text-center py-4 mb-2 bg-orange-700 rounded-tl rounded-tr  text-white font-bold">
+                Posted By
+              </h1>
+              {/* <hr
+                className=""
+                style={{ borderColor: "#0c2e4e", margin: "0" }}
+              /> */}
+
+              <div className="sm:flex md:justify-around  gap-4 px-5">
+                <div className="text-center">
+                  <Avatar
+                    src={`data:image/jpeg;base64, ${seller.seller_image}`}
+                    className="h-24 w-24 "
+                  />
                 </div>
                 <div>
-                  <div>
-                    <p>Name: {seller.seller_name}</p>
-                    <p>Phone:{seller.seller_phonenumber} </p>
-                    <p>Email:{seller.email} </p>
-                    <button className="bg-black-200 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover:bg-white transition-colors delay-300" onClick={()=>navigate(`/seller/store/${ad.userid}`)}> 
-                      View Shop
-                    </button>
+                  <div className="text-gray-600 ">
+                    <p className="capitalize text-center">
+                      Name: {seller.seller_name}
+                    </p>
+                    <p className="text-center">
+                      Phone:{seller.seller_phonenumber}{" "}
+                    </p>
+                    <p className="text-center">Email:{seller.seller_email} </p>
+                    <div className="text-center p-2">
+                      <button
+                        className="bg-black-200 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover:bg-white transition-colors delay-300"
+                        onClick={() =>
+                          navigate(`/seller/store/${ad.userid}`, {
+                            state: { user: seller },
+                          })
+                        }
+                      >
+                        View Shop
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="flex gap-3 mt-4">
+              <div className="flex gap-3 mt-4 p-5 text-center">
                 <button className="p-2 rounded-full bg-gray-200">
                   <WhatsApp className="text-green-500" />
                 </button>

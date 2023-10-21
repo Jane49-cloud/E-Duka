@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userProps } from "../../interface/common";
 import {
+  GetUserById,
   LogginOfUser,
   RegistrationOfUser,
   loggedInUser,
@@ -12,12 +13,14 @@ interface AuthState {
   user: userProps | null;
   isLoading: boolean;
   userToken: string | null;
+  theSeller: userProps | null;
 }
 
 const initialState: AuthState = {
   user: null,
   isLoading: false,
   userToken: localStorage.getItem("userToken") || null,
+  theSeller: null,
 };
 
 export const getLoggedInUser = createAsyncThunk(
@@ -65,6 +68,15 @@ export const LoggingUser = createAsyncThunk(
   }
 );
 
+export const GettingUserById = createAsyncThunk(
+  "auth/gettinguserbyid",
+  async (id: any) => {
+    const response = await GetUserById(id);
+    console.log(response.data.Data);
+    return response.data.Data;
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -109,6 +121,17 @@ const authSlice = createSlice({
         state.userToken = action.payload!.data.token;
       })
       .addCase(LoggingUser.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(GettingUserById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(GettingUserById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // Update state.user with the user data received in the action payload
+        state.theSeller = action.payload; // Adjust this to match your response structure
+      })
+      .addCase(GettingUserById.rejected, (state) => {
         state.isLoading = false;
       });
   },

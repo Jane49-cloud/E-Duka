@@ -48,3 +48,8 @@ export const LogginOfUser = async (formdata: any) => {
   const response = await axiosService.post("/user/auth/signin", formdata);
   return response;
 };
+
+export const GetUserById = async (id: any) => {
+  const response = await axiosService.get(`/user/auth/fetchuser?id=${id}`);
+  return response;
+};
