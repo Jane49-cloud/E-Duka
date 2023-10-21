@@ -23,7 +23,7 @@ export const Links = [
   },
   {
     name: "FAQs",
-    url: "/contact",
+    url: "/eduka/faq",
   },
 ];
 

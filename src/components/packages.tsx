@@ -39,7 +39,7 @@ const TwoColorDiv = () => {
               start
             </button>
           </div>
-          <div className="p-4 h-96 shadow-custom rounded h-96 rounded border-t-4 border-green-300">
+          <div className="p-4 h-96 shadow-custom rounded  border-t-4 border-green-300">
             <div className="flex flex-col items-center justify-center">
               <PaymentIcon style={{ fontSize: 40, color: "red" }} />
               <h2 className="text-xl font-semibold ml-3 text-red-600">

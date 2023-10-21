@@ -31,14 +31,14 @@ const SellersAdsComp = () => {
         {/* User Image and Join Date */}
         <div className=" mb-4 sm:mb-0">
           <Avatar
-            src={`data:image/jpeg;base64, ${theSeller!.userimage}`}
+            src={`data:image/jpeg;base64, ${theSeller?.userimage}`}
             className="w-24 h-24 object-cover mx-auto"
           />
           <p className="text-gray-700">
             Joined Eduka:{" "}
             <span className="text-gray-500 underline font-bold">
-              {theSeller!.CreatedAt
-                ? new Date(theSeller!.CreatedAt).toLocaleDateString()
+              {theSeller?.CreatedAt
+                ? new Date(theSeller?.CreatedAt).toLocaleDateString()
                 : "Date Not Available"}
             </span>
           </p>
@@ -49,14 +49,12 @@ const SellersAdsComp = () => {
           <p className="mb-2">
             Name:{" "}
             <span className="capitalize font-bold text-secondary-orange">
-              {`${theSeller!.firstname} ${theSeller!.middlename} ${
-                theSeller!.lastname
-              }`}
+              {`${theSeller?.firstname} ${theSeller?.middlename} ${theSeller?.lastname}`}
             </span>
           </p>
-          <p className="mb-2">Email: {theSeller!.email}</p>
+          <p className="mb-2">Email: {theSeller?.email}</p>
           <button className="p-2 bg-green-500 text-white my-2 hover:bg-green-700 rounded-md">
-            {theSeller!.phone}
+            {theSeller?.phone}
           </button>
           <div className="flex mt-2 space-x-2">
             <button className="p-2 bg-gray-200 rounded-full">

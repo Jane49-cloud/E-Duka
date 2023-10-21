@@ -36,7 +36,7 @@ function AnotherSlider() {
 
   useEffect(() => {
     // Automatically slide every 2 seconds
-    const intervalId = setInterval(autoSlide, 2000);
+    const intervalId = setInterval(autoSlide, 1500);
 
     return () => {
       clearInterval(intervalId);
@@ -44,7 +44,23 @@ function AnotherSlider() {
   }, []);
 
   // Clone categories to create the effect of an infinite loop
-  const clonedCategories = [...Categories, ...Categories, ...Categories];
+  const clonedCategories = [
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+    ...Categories,
+  ];
 
   return (
     <div className="relative flex items-center mt-3">

@@ -21,6 +21,7 @@ import Terms from "../pages/Terms";
 import Navbar from "../constants/navbar";
 import AdsPage from "../pages/AdsPage";
 import SellersAds from "../pages/SellersAds";
+import FAQSPage from "../pages/FAQSPage";
 
 const Index = () => {
   const [ShowLogin, setShowLogin] = useState<boolean>(false);
@@ -52,6 +53,7 @@ const Index = () => {
           <Route path="/terms_and_conditions" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/eduka/faq" element={<FAQSPage />} />
           <Route path="/ad_info/:id" element={<AdInfo />} />
           <Route path="/seller/store/:id" element={<SellersAds />} />
           <Route path="/profile/myads" element={<MyAds />} />
