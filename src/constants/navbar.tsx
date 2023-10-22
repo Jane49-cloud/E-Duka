@@ -4,15 +4,7 @@ import { Links } from "../data/links";
 import close from "../assets/close.png";
 import menu from "../assets/menu.png";
 import logo from "../assets/logo.png";
-import {
-  IconButton,
-  FormControl,
-  Select,
-  InputBase,
-  MenuItem,
-  Typography,
-} from "@mui/material";
-import { MessageRounded, NotificationsActive } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BiSolidBellRing } from "react-icons/bi";
@@ -20,7 +12,7 @@ import { setOpener } from "../Redux/slices/opener";
 import userphoto from "../assets/user.jpeg";
 import Searchbar from "./searchbar";
 // import { setLoader } from "../Redux/slices/LoaderSlice";
-import { getLoggedInUser, setUser } from "../Redux/slices/AuthSlice";
+import { getLoggedInUser } from "../Redux/slices/AuthSlice";
 import { AppDispatch } from "../Redux/store";
 // import { currentUser } from "../Redux/hooks/user.actions";
 // import { toast } from "react-toastify";
@@ -44,20 +36,20 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
     dispatch(getLoggedInUser());
   }, [userToken]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      if (scrollTop > 100) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollTop = window.scrollY;
+  //     if (scrollTop > 100) {
+  //       setScrolled(true);
+  //     } else {
+  //       setScrolled(false);
+  //     }
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   useEffect(() => {}, [user]);
   const [userSmallnav, setUserSmallNav] = useState(false);
@@ -119,38 +111,6 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
           ))}
           {user ? (
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
-              {/* <li>
-                <Link
-                  to="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  <IconButton
-                    style={{
-                      color: "#DC5F00",
-                      backgroundColor: "#eee",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <MessageRounded />
-                  </IconButton>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  <IconButton
-                    style={{
-                      color: "#DC5F00",
-                      backgroundColor: "#eee",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <NotificationsActive />
-                  </IconButton>
-                </Link>
-              </li> */}
               <div
                 className="h-[50px] w-[50px] rounded-full border border-slate-500 p-1 relative cursor-pointer"
                 onClick={() => {
@@ -165,11 +125,17 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
                 </div>
                 <img className=" rounded-full" src={userphoto} alt="" />
                 {userSmallnav && (
-                  <div className=" absolute text-sm flex text-start justify-start items-start text-stone-600  flex-col gap-1 px-3 font-normal py-2 rounded-[3px] bg-gray-200 ">
-                    <p className="hover:underline hover:text-green-400 cursor-pointer">
+                  <div className=" absolute text-sm flex text-start justify-start items-start text-stone-600  flex-col gap-1 p-4 font-normal  rounded-[3px] bg-gray-200 right-4 w-[150px]">
+                    <p
+                      className="hover:underline hover:text-green-400 cursor-pointer"
+                      onClick={() => navigate("/profile")}
+                    >
                       profile
                     </p>
-                    <p className="hover:underline hover:text-green-400 cursor-pointer">
+                    <p
+                      className="hover:underline hover:text-green-400 cursor-pointer"
+                      onClick={() => navigate("/profile/myads")}
+                    >
                       dashboard
                     </p>
                     <p className="hover:underline hover:text-green-400 cursor-pointer">
@@ -181,42 +147,6 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
                   </div>
                 )}
               </div>
-
-              {/* <FormControl>
-                <Select
-                  value={user.username && user.lastname}
-                  sx={{
-                    backgroundColor: "#eee",
-                    width: "150px",
-                    borderRadius: "0.25rem",
-                    p: "0.25rem 1rem",
-                    "& .MuiSvgIcon-root": {
-                      pr: "0.25rem",
-                      width: "3rem",
-                    },
-                    "& .MuiSelect-select:focus": {
-                      backgroundColor: "#eee",
-                    },
-                  }}
-                  input={<InputBase />}
-                >
-                  <MenuItem
-                    value={user.username && user.lastname}
-                    onClick={() => {
-                      navigate("/profile/myads");
-                    }}
-                  >
-                    <Typography>{user.username && user.lastname}</Typography>
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      navigate("/login");
-                    }}
-                  >
-                    Logout
-                  </MenuItem>
-                </Select>
-              </FormControl> */}
             </ul>
           ) : (
             <div>
@@ -278,76 +208,42 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
               ))}
               {user ? (
                 <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
-                  <li>
-                    <Link
-                      to="#"
-                      className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    >
-                      <IconButton
-                        style={{
-                          color: "#DC5F00",
-                          backgroundColor: "#eee",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <MessageRounded />
-                      </IconButton>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="#"
-                      className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    >
-                      <IconButton
-                        style={{
-                          color: "#DC5F00",
-                          backgroundColor: "#eee",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <NotificationsActive />
-                      </IconButton>
-                    </Link>
-                  </li>
-
-                  <FormControl>
-                    <Select
-                      value={user.username && user.lastname}
-                      sx={{
-                        backgroundColor: "#eee",
-                        width: "150px",
-                        borderRadius: "0.25rem",
-                        p: "0.25rem 1rem",
-                        "& .MuiSvgIcon-root": {
-                          pr: "0.25rem",
-                          width: "3rem",
-                        },
-                        "& .MuiSelect-select:focus": {
-                          backgroundColor: "#eee",
-                        },
-                      }}
-                      input={<InputBase />}
-                    >
-                      <MenuItem
-                        value={user.username && user.lastname}
-                        onClick={() => {
-                          navigate("/profile/myads");
-                        }}
-                      >
-                        <Typography>
-                          {user.username && user.lastname}
-                        </Typography>
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          navigate("/login");
-                        }}
-                      >
-                        Logout
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
+                  <div
+                    className="h-[50px] w-[50px] rounded-full border border-slate-500 p-1 relative cursor-pointer"
+                    onClick={() => {
+                      setUserSmallNav(!userSmallnav);
+                    }}
+                  >
+                    <div className="h-4 w-4 rounded-full absolute top-0 right-0">
+                      <BiSolidBellRing className="text-red-400" />
+                    </div>
+                    <div className="h-4 text-center w-4 rounded-full absolute bg-green-400 top-0 left-0 text-[10px]">
+                      9+
+                    </div>
+                    <img className=" rounded-full" src={userphoto} alt="" />
+                    {userSmallnav && (
+                      <div className=" absolute text-sm flex text-start justify-start items-start text-stone-600  flex-col gap-1 p-4 font-normal  rounded-[3px] bg-gray-200  right-4">
+                        <p
+                          className="hover:underline hover:text-green-400 cursor-pointer"
+                          onClick={() => navigate("/profile")}
+                        >
+                          profile
+                        </p>
+                        <p
+                          className="hover:underline hover:text-green-400 cursor-pointer"
+                          onClick={() => navigate("/profile/myads")}
+                        >
+                          dashboard
+                        </p>
+                        <p className="hover:underline hover:text-green-400 cursor-pointer">
+                          notifications
+                        </p>
+                        <button className="hover:underline hover:text-green-400 cursor-pointer">
+                          log out
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </ul>
               ) : (
                 <div>

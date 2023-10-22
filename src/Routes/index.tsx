@@ -22,6 +22,7 @@ import Navbar from "../constants/navbar";
 import AdsPage from "../pages/AdsPage";
 import SellersAds from "../pages/SellersAds";
 import FAQSPage from "../pages/FAQSPage";
+import Profile from "../pages/userDash/profile";
 
 const Index = () => {
   const [ShowLogin, setShowLogin] = useState<boolean>(false);
@@ -56,6 +57,7 @@ const Index = () => {
           <Route path="/eduka/faq" element={<FAQSPage />} />
           <Route path="/ad_info/:id" element={<AdInfo />} />
           <Route path="/seller/store/:id" element={<SellersAds />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/profile/myads" element={<MyAds />} />
           <Route path="/profile/pending" element={<Pending />} />
           <Route path="/profile/declined" element={<Declined />} />

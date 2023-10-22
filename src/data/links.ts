@@ -27,35 +27,45 @@ export const Links = [
   },
 ];
 
-export const Shortcuts =[
-  "electronics", "clothes","accessories","interior deco","furniture","office","travel", "men", "women","children","adults","adults"
-]
-
+export const Shortcuts = [
+  "electronics",
+  "clothes",
+  "accessories",
+  "interior deco",
+  "furniture",
+  "office",
+  "travel",
+  "men",
+  "women",
+  "children",
+  "adults",
+  "adults",
+];
 
 export const DashboardLinks = [
   {
     name: "My Ads",
-    url: "",
+    url: "profile/myads",
     icon: A1,
   },
   {
-    name: "Subscriptions",
-    url: "",
+    name: "profile",
+    url: "profile",
     icon: A4,
   },
   {
     name: "Notifications",
-    url: "",
+    url: "notifications",
     icon: A3,
   },
   {
     name: "Messages",
-    url: "",
+    url: "messages",
     icon: A5,
   },
   {
     name: "Support",
-    url: "",
+    url: "contact",
     icon: A2,
   },
 ];

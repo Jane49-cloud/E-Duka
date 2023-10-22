@@ -1,7 +1,9 @@
 import { Avatar } from "antd";
 import { DashboardLinks } from "../../data/links";
 import Image from "../../assets/profile.jpg";
+import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div
@@ -21,8 +23,9 @@ const Sidebar = () => {
               className={`flex rounded-md p-2 cursor-pointer hover:bg-primary-orange hover:text-white text-sm items-center gap-4 bg-white ${"mt-2"} ${
                 index === 0 && "bg-light-white"
               }`}
+              onClick={() => navigate(`/${Menu.url}`)}
             >
-              <img src={Menu.icon} className="h-8" />
+              <img src={Menu.icon} className="h-8 object-cover" />
               <span className={`${!open && "hidden"} origin-left duration-200`}>
                 {Menu.name}
               </span>

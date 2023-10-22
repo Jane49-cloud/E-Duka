@@ -36,9 +36,9 @@
   height: 600px;
 }
 img {
-  width: 100%;
+  /* width: 100%; */
   display: block;
-  border-radius: var(--radius);
+  border-radius: 0.25rem;
   object-fit: cover;
 }
 .gallery {

@@ -8,7 +8,7 @@ import AdsTable from "../../components/AdsTable";
 const Declined = () => {
   const [showTable, setShowTable] = useState(false);
   return (
-    <div className="flex pt-20">
+    <div className="flex mt-20">
       <Sidebar />
       <div className="flex-1 p-5 mx-auto">
         <Navbar />
