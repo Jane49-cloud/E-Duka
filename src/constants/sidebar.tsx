@@ -178,51 +178,6 @@ const Sidebar = () => {
       )}
 
       {/* this is where the sidebar menu will sit when on smaller devices */}
-
-      {open && (
-        <div
-          className="absolute px-4  bg-gray-light m-3 overflow-y-auto pt-10  z-10 no-scrollbar sm:hidden rounded "
-          style={{
-            height: "80vh",
-            maxHeight: "80vh",
-            width: "250px",
-            // position: "sticky",
-          }}
-        >
-          <div className="w-full flex justify-end">
-            <div>
-              <HiLockClosed
-                size="32"
-                onClick={() => {
-                  dispatch(setOpener(false));
-                }}
-              />
-            </div>
-          </div>
-          <ul className="">
-            {categories.map((Menu: categoryData, index: number) => (
-              <div>
-                <li
-                  key={index}
-                  className={`flex  rounded-md p-2  cursor-pointer hover:bg-white  text-sm items-center gap-x-4 
-             ${"mt-2"} ${index === 0 && "bg-light-white"} `}
-                  onMouseOver={() => {
-                    // handleCategoryMouseOver(Menu.categoryname);
-                    // setSubmenuOpen(true);
-                  }}
-                >
-                  {/* <img src={Menu.categoryimage} /> */}
-                  <span
-                    className={`${!open && "hidden"} origin-left duration-200`}
-                  >
-                    {Menu.categoryname}
-                  </span>
-                </li>
-              </div>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 };

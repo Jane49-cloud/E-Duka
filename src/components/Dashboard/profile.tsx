@@ -3,6 +3,7 @@ import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoggedInUser } from "../../Redux/slices/AuthSlice";
 import { AppDispatch } from "../../Redux/store";
+import { UpdattingOfUser } from "../../Redux/slices/AuthSlice";
 
 type FormData = {
   firstname: string;
@@ -17,14 +18,16 @@ type FormData = {
 const Profile: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: any) => state.auth.user);
+  const id = user?.userid;
+
   const [formData, setFormData] = useState<FormData>({
-    firstname: user.firstname,
-    middlename: user.middlename,
-    lastname: user.lastname,
-    location: user.location,
-    phonenumber: user.phone,
-    email: user.email,
-    userimage: user.userimage,
+    firstname: user!.firstname,
+    middlename: user!.middlename,
+    lastname: user!.lastname,
+    location: user!.location,
+    phonenumber: user!.phone,
+    email: user!.email,
+    userimage: user!.userimage,
   });
 
   useEffect(() => {
@@ -43,7 +46,7 @@ const Profile: React.FC = () => {
   // Function to handle form submission
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Process the edited data (formData), including userImage
+    dispatch(UpdattingOfUser(id, formData));
     console.log("Edited data:", formData);
     // You can send the data to a server or update it locally as needed
   };

@@ -53,3 +53,11 @@ export const GetUserById = async (id: any) => {
   const response = await axiosService.get(`/user/auth/fetchuser?id=${id}`);
   return response;
 };
+
+export const UpdateOfUser = async (id: any, formdata: any) => {
+  const response = await axiosService.post(
+    `/user/auth/updateuser?userid=${id}`,
+    formdata
+  );
+  return response;
+};

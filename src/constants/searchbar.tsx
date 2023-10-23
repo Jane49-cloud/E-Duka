@@ -11,7 +11,7 @@ const SearchBar: React.FC = () => {
   const [maxPrice, setMaxPrice] = useState<string>("100000000");
   const [categories, setCategories] = useState<any[]>([]);
   const [subcategories, setSubcategories] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { open } = useSelector((state: any) => state.opener);
 
@@ -145,7 +145,7 @@ const SearchBar: React.FC = () => {
 
       {open && (
         <div
-          className="sm:hidden flex-col flex-wrap  gap-2 shadow-custom p-3 bg-primary-orange w-screen  pl-4"
+          className="sm:hidden search flex-col flex-wrap gap-2 shadow-custom p-3 bg-primary-orange w-screen  pl-4"
           style={{ display: "flex" }}
         >
           <button

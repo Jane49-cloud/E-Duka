@@ -4,6 +4,7 @@ import {
   GetUserById,
   LogginOfUser,
   RegistrationOfUser,
+  UpdateOfUser,
   loggedInUser,
 } from "../hooks/user.actions";
 import { toast } from "react-toastify";
@@ -82,6 +83,15 @@ export const GettingUserById = createAsyncThunk(
   }
 );
 
+export const UpdattingOfUser = createAsyncThunk(
+  "auth/updatingofuser",
+  async (id: any, formdata: any) => {
+    const response = await UpdateOfUser(id, formdata);
+    console.log(response.data.Data);
+    return response.data.Data;
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -137,6 +147,17 @@ const authSlice = createSlice({
         state.theSeller = action.payload; // Adjust this to match your response structure
       })
       .addCase(GettingUserById.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(UpdattingOfUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(UpdattingOfUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // Handle the fulfilled action here, e.g., update user data
+        state.user = action.payload;
+      })
+      .addCase(UpdattingOfUser.rejected, (state) => {
         state.isLoading = false;
       });
   },
