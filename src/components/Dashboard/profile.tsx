@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLoggedInUser } from "../../Redux/slices/AuthSlice";
 import { AppDispatch } from "../../Redux/store";
 import { UpdattingOfUser } from "../../Redux/slices/AuthSlice";
+import { useNavigate } from "react-router-dom";
 
 type FormData = {
   firstname: string;
@@ -17,8 +18,9 @@ type FormData = {
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const user = useSelector((state: any) => state.auth.user);
-  const id = user?.userid;
+  const userid = user?.userid;
 
   const [formData, setFormData] = useState<FormData>({
     firstname: user!.firstname,
@@ -46,8 +48,10 @@ const Profile: React.FC = () => {
   // Function to handle form submission
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(UpdattingOfUser(id, formData));
+    dispatch(UpdattingOfUser({ userid, formData }));
+
     console.log("Edited data:", formData);
+    navigate("/profile");
     // You can send the data to a server or update it locally as needed
   };
 
@@ -55,12 +59,14 @@ const Profile: React.FC = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
-      // Convert the image to base64
+      // Convert the new image to base64
       const reader = new FileReader();
       reader.onload = (event) => {
+        const result = event.target?.result as string;
+        const base64Data = result.split(",")[1]; // Get the base64 string after the comma
         setFormData((prevData) => ({
           ...prevData,
-          userImage: event.target?.result as string,
+          userimage: base64Data,
         }));
       };
       reader.readAsDataURL(file);

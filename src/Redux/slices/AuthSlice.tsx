@@ -85,8 +85,8 @@ export const GettingUserById = createAsyncThunk(
 
 export const UpdattingOfUser = createAsyncThunk(
   "auth/updatingofuser",
-  async (id: any, formdata: any) => {
-    const response = await UpdateOfUser(id, formdata);
+  async ({ userid, formData }: { userid: string; formData: any }) => {
+    const response = await UpdateOfUser(userid, formData);
     console.log(response.data.Data);
     return response.data.Data;
   }

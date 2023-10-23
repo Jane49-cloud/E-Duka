@@ -54,9 +54,9 @@ export const GetUserById = async (id: any) => {
   return response;
 };
 
-export const UpdateOfUser = async (id: any, formdata: any) => {
+export const UpdateOfUser = async (userid: any, formdata: any) => {
   const response = await axiosService.post(
-    `/user/auth/updateuser?userid=${id}`,
+    `/user/auth/updateuser?userid=${userid}`,
     formdata
   );
   return response;
