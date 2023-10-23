@@ -67,11 +67,11 @@ const Sidebar = () => {
 
   return (
     <div className="rounded">
-      <div
-        className="px-4  h-[55vh] max-h-[55vh]  sticky top-0 bg-slate-200 shadow-custom rounded overflow-y-auto my-sidebar no-scrollbar "
-      >
+      <div className="px-4  h-[55vh] max-h-[55vh]  sticky top-0 bg-slate-200 shadow-custom rounded overflow-y-auto my-sidebar no-scrollbar ">
         <ul className="py-1">
-          <h1 className="my-3 text-stone-600 text-sm font-bold">Top Categories</h1>
+          <h1 className="my-3 text-stone-600 text-sm font-bold">
+            Top Categories
+          </h1>
           {categories.map((Menu: categoryData, index: number) => (
             <div>
               <li
@@ -80,7 +80,7 @@ const Sidebar = () => {
               ${"mt-2"} ${index === 0 && "bg-light-white"} `}
                 onMouseOver={() => {
                   handleCategoryMouseOver(Menu.categoryname);
-                  setSubmenuOpen(true);
+                  setSubmenuOpen(false);
                 }}
               >
                 <img
@@ -89,7 +89,9 @@ const Sidebar = () => {
                   object-cover
                 />
                 <span
-                  className={`${!open && ""} origin-left duration-200 text-xs flex-1 text-stone-500`}
+                  className={`${
+                    !open && ""
+                  } origin-left duration-200 text-xs flex-1 text-stone-500`}
                 >
                   {Menu.categoryname}
                 </span>
@@ -109,7 +111,7 @@ const Sidebar = () => {
               ${"mt-2"} ${index === 0 && "bg-light-white"} `}
                 onMouseOver={() => {
                   handleCategoryMouseOver(Menu.categoryname);
-                  setSubmenuOpen(true);
+                  setSubmenuOpen(false);
                 }}
               >
                 <img
@@ -118,7 +120,9 @@ const Sidebar = () => {
                   object-cover
                 />
                 <span
-                  className={`${!open && ""} origin-left duration-200 text-xs flex-1 text-stone-500`}
+                  className={`${
+                    !open && ""
+                  } origin-left duration-200 text-xs flex-1 text-stone-500`}
                 >
                   <h1 className="font-bold">John Doe</h1>
                   <h3 className="text-xs">(273 products)</h3>
@@ -132,15 +136,14 @@ const Sidebar = () => {
         <ul className="flex flex-col py-2">
           <h1 className=" text-stone-600 text-sm font-bold">Top Products</h1>
           <div className="flex flex-row no-scrollbar overflow-x-scroll w-fit">
-
-            {
-              TopProducts.map((top_product) => (
-                <div className="flex flex-col bg-slate-300 p-1 w-[50px]  rounded-[5px] mr-3">
-                  <img className=" " src={top_product.image} alt="" />
-                  <h5 className=" text-ellipsis line-clamp-1 text-stone-500 text-[10px]">{top_product.name}</h5>
-                </div>
-              ))
-            }
+            {TopProducts.map((top_product) => (
+              <div className="flex flex-col bg-slate-300 p-1 w-[50px]  rounded-[5px] mr-3">
+                <img className=" " src={top_product.image} alt="" />
+                <h5 className=" text-ellipsis line-clamp-1 text-stone-500 text-[10px]">
+                  {top_product.name}
+                </h5>
+              </div>
+            ))}
           </div>
         </ul>
       </div>

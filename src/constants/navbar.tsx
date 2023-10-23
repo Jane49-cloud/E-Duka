@@ -9,11 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BiSolidBellRing } from "react-icons/bi";
 import { setOpener } from "../Redux/slices/opener";
-import userphoto from "../assets/user.jpeg";
 import Searchbar from "./searchbar";
 // import { setLoader } from "../Redux/slices/LoaderSlice";
 import { getLoggedInUser } from "../Redux/slices/AuthSlice";
 import { AppDispatch } from "../Redux/store";
+import { Search } from "@mui/icons-material";
 // import { currentUser } from "../Redux/hooks/user.actions";
 // import { toast } from "react-toastify";
 
@@ -57,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
 
   return (
     <nav
-      className={`w-full  flex flex-col items-center justify-center p-3  fixed top-0 z-20 ${
+      className={`w-full  flex flex-col items-center price justify-center p-3  fixed top-0 z-20 ${
         scrolled ? "bg-white" : "bg-white"
       }`}
       // style={{ marginBottom: "2px" }}
@@ -165,6 +165,13 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
+          <button
+            className="bg-gray-light h-10  w-10 mr-4 rounded-full"
+            onClick={() => dispatch(setOpener(!open))}
+          >
+            {" "}
+            <Search className="font-bold" />
+          </button>
           <IconButton
             style={{
               color: "#991b1b",
