@@ -1,19 +1,18 @@
 import { useState } from "react";
 import Sidebar from "../../components/Dashboard/Sidebar";
 import Navbar from "../../components/Dashboard/MyAds/Navbar";
-
-import AdsCard from "../../components/AdsCard";
-import AdsTable from "../../components/AdsTable";
+import AdsComp from "../../components/Dashboard/userAds";
+import AdsTable from "../../components/Dashboard/MyAds.Table";
 const MyAds = () => {
   const [showTable, setShowTable] = useState(false);
   return (
-    <div className="flex mt-20">
+    <div className="flex mt-20 parent">
       <Sidebar />
-      <div className="flex-1 p-5 mx-auto">
+      <div className="flex-1 p-5 mx-auto my-body">
         <Navbar />
         <div className="flex justify-end">
           <button
-            className="mt-2 flex bg-primary-orange rounded p-2 text-white capitalize hover:bg-secondary-orange transition duration-300 ease-in-out transform hover:scale-105"
+            className="mt-2 mb-2 flex bg-primary-orange rounded p-2 text-white capitalize hover:bg-secondary-orange transition duration-300 ease-in-out transform hover:scale-105"
             onClick={() => {
               setShowTable(!showTable);
             }}
@@ -22,7 +21,7 @@ const MyAds = () => {
           </button>
         </div>
 
-        {!showTable && <AdsCard />}
+        {!showTable && <AdsComp />}
         {showTable && <AdsTable />}
       </div>
     </div>

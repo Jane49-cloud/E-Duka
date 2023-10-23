@@ -62,7 +62,10 @@ const Landing = () => {
           <div className="flex-1 mx-auto  my-body ">
             {/* <Minslider /> */}
             <Popular />
-            <Package />
+            <div className="hidden md:block">
+              {" "}
+              <Package />
+            </div>
           </div>
         </div>
       </div>

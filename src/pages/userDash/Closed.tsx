@@ -1,15 +1,15 @@
 import { useState } from "react";
 import Sidebar from "../../components/Dashboard/Sidebar";
 import Navbar from "../../components/Dashboard/MyAds/Navbar";
+import AdsTable from "../../components/Dashboard/MyAds/Closed.Table";
+import AdsComp from "../../components/Dashboard/ClosedComp";
 
-import AdsCard from "../../components/AdsCard";
-import AdsTable from "../../components/AdsTable";
 const Closed = () => {
   const [showTable, setShowTable] = useState(false);
   return (
-    <div className="flex mt-20">
+    <div className="flex mt-20 parent">
       <Sidebar />
-      <div className="flex-1 p-5 mx-auto">
+      <div className="flex-1 p-5 mx-auto my-body">
         <Navbar />
         <div className="flex justify-end">
           <button
@@ -22,7 +22,7 @@ const Closed = () => {
           </button>
         </div>
 
-        {!showTable && <AdsCard />}
+        {!showTable && <AdsComp />}
         {showTable && <AdsTable />}
       </div>
     </div>

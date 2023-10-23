@@ -115,7 +115,7 @@ const ImageSlider = () => {
       </div>
 
       <div
-        className="w-72 , rounded"
+        className="w-72 , rounded hidden md:block"
         style={{ height: "55vh", backgroundColor: "#0a2540", fill: "#425466" }}
       >
         <div className="flex p-2 text-gray-500 gap-1  border-b-2 border-blue-950 shadow-custom ">

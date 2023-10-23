@@ -6,6 +6,7 @@ import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { RegisteringUser } from "../../Redux/slices/AuthSlice";
 import { AppDispatch } from "../../Redux/store";
 import Loader from "../../constants/loader";
+import { locations } from "../../data/Location";
 
 type RegisterFormProps = {
   showRegister: boolean;
@@ -58,6 +59,24 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validate first name, middle name, and last name to ensure they don't contain numbers
+    const nameRegex = /^[A-Za-z\s]+$/;
+
+    if (!nameRegex.test(formData.firstname)) {
+      toast.error("First name cannot contain numbers.");
+      return;
+    }
+
+    if (!nameRegex.test(formData.middlename)) {
+      toast.error("Middle name cannot contain numbers.");
+      return;
+    }
+
+    if (!nameRegex.test(formData.lastname)) {
+      toast.error("Last name cannot contain numbers.");
+      return;
+    }
 
     // Password validation: at least 8 characters, one special character, and one capital letter
     const passwordRegex =
@@ -235,10 +254,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange "
                 >
-                  <option value="Nairobi">Nairobi</option>
-                  <option value="Thika">Thika</option>
+                  <option value="select location">select location</option>
+                  {locations.map((location) => (
+                    <option key={location.id} value={location.name}>
+                      {location.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="mb-4">

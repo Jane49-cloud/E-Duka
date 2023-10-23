@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ProductData } from "../../interface/common";
-import { fetchOurProducts, fetchSellersProduct } from "../hooks/Ads.actions";
+import {
+  fetchLoggedUsersProducts,
+  fetchOurProducts,
+  fetchSellersProduct,
+} from "../hooks/Ads.actions";
 import { toast } from "react-toastify";
 
 interface ProductsState {
@@ -36,13 +40,28 @@ export const FetchSellerProducts = createAsyncThunk(
       console.log(response);
       return response.data.Data;
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error fetching seller products:", error);
       throw error; // Re-throw the error to be caught by the rejection handler
     }
   }
 );
+
+export const FetchLoggedUsersProducts = createAsyncThunk(
+  "ads/fetchloggedusersproducts",
+  async (id: any) => {
+    try {
+      const response = await fetchLoggedUsersProducts(id);
+      console.log(response);
+      return response.data.Data;
+    } catch (error) {
+      console.error("Error fetching logged user's products:", error);
+      throw error; // Re-throw the error to be caught by the rejection handler
+    }
+  }
+);
+
 const productsSlice = createSlice({
-  name: "Products", // Renamed the slice to "Products"
+  name: "products", // Renamed the slice to "products" (lowercase)
   initialState,
   reducers: {
     setAds: (state, action) => {
@@ -55,13 +74,12 @@ const productsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(FetchProductsAsync.fulfilled, (state, action) => {
-        // console.log(action);
         state.isLoading = false;
         state.Ads = action.payload;
       })
       .addCase(FetchProductsAsync.rejected, (state, action) => {
-        console.log(action);
         state.isLoading = false;
+        console.error("Error fetching products:", action.error);
       });
     builder
       .addCase(FetchSellerProducts.pending, (state) => {
@@ -74,6 +92,20 @@ const productsSlice = createSlice({
       .addCase(FetchSellerProducts.rejected, (state) => {
         state.isLoading = false;
         toast.error("Error fetching seller products. Please try again later.");
+      });
+    builder
+      .addCase(FetchLoggedUsersProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(FetchLoggedUsersProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.Ads = action.payload;
+      })
+      .addCase(FetchLoggedUsersProducts.rejected, (state) => {
+        state.isLoading = false;
+        toast.error(
+          "Error fetching logged user's products. Please try again later."
+        );
       });
   },
 });

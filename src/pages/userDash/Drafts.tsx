@@ -7,9 +7,9 @@ import AdsTable from "../../components/AdsTable";
 const Drafts = () => {
   const [showTable, setShowTable] = useState(false);
   return (
-    <div className="flex mt-20">
+    <div className="flex mt-20 parent">
       <Sidebar />
-      <div className="flex-1 p-5 mx-auto">
+      <div className="flex-1 p-5 mx-auto my-body">
         <Navbar />
         <div className="flex justify-end">
           <button

@@ -55,7 +55,7 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
       );
       return response.data.Data;
     } catch (error) {
-      console.error("Error fetching subcategories:", error);
+      // console.error("Error fetching subcategories:", error);
       return [];
     }
   };
@@ -94,6 +94,8 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
     mainimage: "null",
     productimages: [],
     producttid: "",
+    isactive: true,
+    isapproved: false,
 
     // negotiable: false,
   });
@@ -211,7 +213,7 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
     const { name, value, type } = e.target;
 
     // Replace special characters with spaces before setting the state
-    const sanitizedValue = value.replace(/[^\w\s]+/g, " ");
+    const sanitizedValue = value.replace(/[^\w\s,.]+/g, " ");
 
     setFormData((prevData) => ({
       ...prevData,
@@ -232,12 +234,15 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
     }));
   };
 
-  console.log(formData);
+  // console.log(formData);
   // function to create a new product
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (formData.productdescription.length < 100) {
+      toast.error("Product description must be at least 100 characters.");
+      return;
+    }
     try {
       dispatch(setLoader(true));
       const response = await createProduct(formData);
@@ -265,6 +270,8 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
       mainimage: "null",
       productimages: [],
       producttid: "",
+      isactive: true,
+      isapproved: false,
     });
   };
 
@@ -426,8 +433,11 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
                     value={formData.producttype}
                     onChange={handleSelectChange}
                   >
-                    <option value="new">New</option>
+                    <option value="select type">select type</option>
+                    <option value="brand new">Brand New</option>
                     <option value="refurbished">Refurbished</option>
+                    <option value="exported">Exported</option>
+                    <option value="ex uk">Ex Uk</option>
                   </select>
                 </div>
               </div>

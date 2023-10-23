@@ -45,8 +45,13 @@ export const getLoggedInUser = createAsyncThunk(
 export const RegisteringUser = createAsyncThunk(
   "auth/registeringUser",
   async (formData: any) => {
-    const response = await RegistrationOfUser(formData);
-    return response;
+    try {
+      const response = await RegistrationOfUser(formData);
+      return response;
+    } catch (error) {
+      toast.error("Registration failed. Please check your credentials.");
+      throw error;
+    }
   }
 );
 export const LoggingUser = createAsyncThunk(

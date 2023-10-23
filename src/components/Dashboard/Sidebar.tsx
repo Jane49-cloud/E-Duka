@@ -1,13 +1,14 @@
 import { Avatar } from "antd";
 import { DashboardLinks } from "../../data/links";
-import Image from "../../assets/profile.jpg";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Sidebar = () => {
   const navigate = useNavigate();
+  const user = useSelector((state: any) => state.auth.user);
   return (
     <div>
       <div
-        className="px-6 bg-gray-light m-3 overflow-y-auto pt-10"
+        className="px-6 bg-gray-light m-3 overflow-y-auto pt-10 my-sidebar"
         style={{
           width: "22vw",
           height: "100vh",
@@ -37,10 +38,10 @@ const Sidebar = () => {
         <div className="flex items-center  mt-10 flex-col">
           <Avatar
             alt="Jane Doe"
-            src={Image}
+            src={`data:image/jpeg;base64, ${user?.userimage}`}
             className="h-24 w-24 border-4 border-primary-orange "
           />
-          <span className="text mt-5">Jane Doe</span>
+          <span className="text mt-5 capitalize">{`${user?.firstname} ${user?.lastname}`}</span>
         </div>
       </div>
     </div>

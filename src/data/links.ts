@@ -79,14 +79,14 @@ export const UserAdsLinks = [
     name: "Pending",
     url: "/profile/pending", // Removed leading space
   },
-  {
-    name: "drafts",
-    url: "/profile/drafts",
-  },
-  {
-    name: "Declined",
-    url: "/profile/declined",
-  },
+  // {
+  //   name: "drafts",
+  //   url: "/profile/drafts",
+  // },
+  // {
+  //   name: "Declined",
+  //   url: "/profile/declined",
+  // },
   {
     name: "closed",
     url: "/profile/closed",

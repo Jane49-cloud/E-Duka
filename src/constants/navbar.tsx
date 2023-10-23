@@ -123,7 +123,11 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
                 <div className="h-4 text-center w-4 rounded-full absolute bg-green-400 top-0 left-0 text-[10px]">
                   9+
                 </div>
-                <img className=" rounded-full" src={userphoto} alt="" />
+                <img
+                  className=" rounded-full"
+                  src={`data:image/jpeg;base64, ${user?.userimage}`}
+                  alt=""
+                />
                 {userSmallnav && (
                   <div className=" absolute text-sm flex text-start justify-start items-start text-stone-600  flex-col gap-1 p-4 font-normal  rounded-[3px] bg-gray-200 right-4 w-[150px]">
                     <p
@@ -220,7 +224,11 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
                     <div className="h-4 text-center w-4 rounded-full absolute bg-green-400 top-0 left-0 text-[10px]">
                       9+
                     </div>
-                    <img className=" rounded-full" src={userphoto} alt="" />
+                    <img
+                      className=" rounded-full"
+                      src={`data:image/jpeg;base64, ${user?.userimage}`}
+                      alt=""
+                    />
                     {userSmallnav && (
                       <div className=" absolute text-sm flex text-start justify-start items-start text-stone-600  flex-col gap-1 p-4 font-normal  rounded-[3px] bg-gray-200  right-4">
                         <p

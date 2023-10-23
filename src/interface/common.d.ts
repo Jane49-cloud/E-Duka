@@ -22,6 +22,7 @@ export interface productCard {
 
 // Replace "interface" with "type" for defining the ProductData type.
 type ProductData = {
+  isapproved: boolean;
   productname: string;
   productdescription: string;
   productprice: string;
@@ -33,6 +34,7 @@ type ProductData = {
   brand: string;
   productimages: File[] | [] | any[];
   producttid: string;
+  isactive: boolean;
 };
 
 interface categoryData {
