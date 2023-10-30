@@ -27,6 +27,7 @@ const [negotiable, setNegotiable] = useState("");
 const [image, setImage] = useState<File | null>(null);
 const [imagePreview, setImagePreview] = useState<string | null>(null);
 status;
+s
 
 
 <div className=" flex-wrap flex gap-5 w-full ">
