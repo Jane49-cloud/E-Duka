@@ -22,6 +22,8 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
   const categories = useSelector((state: any) => state.categories.categories);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [subcategories, setSubcategories] = useState<subcategoryData[]>([]);
+
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -276,19 +278,22 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
   };
 
   // console.log(subcategories);
+
+
+
   return (
     <>
       {showAdsForm && (
-        <div className="absolute px-5 min-h-full w-full bg-stone-300/50 z-50 flex items-center justify-center py-2 overflow-y-auto">
+        <div className="fixed inset-0 px-5 min-h-full w-full bg-stone-300/50 z-50 flex items-center justify-center py-2 overflow-y-auto">
           <form
-            className="w-full lg:w-4/6 h-5/6  bg-gray-light rounded-2xl shadow-2xl"
+            className="w-full lg:w-4/6 h-5/6  rounded-2xl shadow-2xl"
             onSubmit={handleSubmit}
             encType="multipart/form-data"
           >
-            <div className=" w-full h-full  bg-gray-light rounded-2xl shadow-2xl flex flex-col overflow-scroll lg:flex-row flex-wrap">
+          <div className="w-full h-full flex flex-col md:flex-row overflow-scroll price bg-white px-4 rounded py-4" >
               {/* left-side div */}
-              <div className=" w-full lg:w-3/6 h-full rounded-l-2xl p-5">
-                <div className="hidden sm:flex flex-col items-end justify-center">
+              <div className="w-full lg:w-3/6 h-full rounded-l-2xl p-5">
+                <div className="flex flex-col items-end justify-center md:hidden">
                   <img
                     src={close}
                     alt=""
@@ -445,8 +450,8 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
 
               {/* Right side div starts here */}
 
-              <div className="w-full lg:w-3/6 h-full rounded-r-2xl p-5 ">
-                <div className="flex flex-col items-end justify-center">
+              <div className="w-full lg:w-3/6 h-full rounded-r-2xl p-5">
+                <div className="hidden md:flex flex-col items-end justify-center">
                   <img
                     src={close}
                     alt=""
@@ -552,11 +557,11 @@ const AdForm: React.FC<AdFormProps> = ({ showAdsForm, setShowAdsForm }) => {
                 <div className="mb-2">
                   <label
                     htmlFor="Negotiable"
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-2" 
                   >
                     Negotiable:
                   </label>
-                  <input type="checkbox" id="Negotiable" name="Negotiable" />
+                  <input type="checkbox" id="Negotiable" name="Negotiable" className="rounded" style={{width:"24px" }}/>
                 </div>
                 <button
                   type="submit"

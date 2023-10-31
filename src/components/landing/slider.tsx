@@ -3,7 +3,7 @@ import { Accordions } from "../../data/slider";
 import { IconButton } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { FaQuestion, FaServicestack, FaRegMoneyBillAlt } from "react-icons/fa";
-import Logo from "../../assets/logo2.png";
+import Logo from "../../assets/logo.jpeg";
 
 const ImageSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

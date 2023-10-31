@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { Categories } from "../../data/categories";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Category } from "@mui/icons-material";
-import Cart from "../../assets/cart.jpg";
+// import Cart from "../../assets/cart.jpg";
 
 function AnotherSlider() {
   const sliderRef = useRef<HTMLDivElement | null>(null); // Explicitly specify the type

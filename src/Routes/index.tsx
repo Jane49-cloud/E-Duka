@@ -9,8 +9,6 @@ import Drafts from "../pages/userDash/Drafts";
 import Pricing from "../pages/Pricing";
 import CreateAds from "../pages/CreateAds";
 import { useState } from "react";
-import LoginForm from "../components/Auth/LoginForm";
-import RegisterForm from "../components/Auth/RegisterForm";
 import AdsForm from "../components/Ad/AdForm";
 import Footer from "../constants/footer";
 import Contact from "../pages/Contact";
@@ -23,26 +21,19 @@ import AdsPage from "../pages/AdsPage";
 import SellersAds from "../pages/SellersAds";
 import FAQSPage from "../pages/FAQSPage";
 import Profile from "../pages/userDash/profile";
+import Login from "../pages/login";
+import Signup from "../pages/Register";
+// import ProtectedRoutes from "./ProtectedRoutes";
 
 const Index = () => {
-  const [ShowLogin, setShowLogin] = useState<boolean>(false);
-  const [ShowRegister, setShowRegister] = useState<boolean>(false);
+  const [, setShowLogin] = useState<boolean>(false);
+
   const [showAdsForm, setShowAdsForm] = useState<boolean>(false);
   return (
     <div className="" style={{ maxWidth: "100vw" }}>
       <Navbar SetShowLogin={setShowLogin} SetShowAdsForm={setShowAdsForm} />
-      <LoginForm
-        showLogin={ShowLogin}
-        SetShowLogin={setShowLogin}
-        showRegister={ShowRegister}
-        SetShowRegister={setShowRegister}
-      />
-      <RegisterForm
-        // showLogin={ShowLogin}
-        SetShowLogin={setShowLogin}
-        showRegister={ShowRegister}
-        SetShowRegister={setShowRegister}
-      />
+   
+    
       <ToastContainer position="top-center" />
       <AdsForm showAdsForm={showAdsForm} setShowAdsForm={setShowAdsForm} />
       <div className="mt-40">
@@ -64,6 +55,10 @@ const Index = () => {
           <Route path="/new-ad" element={<CreateAds />} />
           <Route path="/profile/closed" element={<Closed />} />
           <Route path="/profile/drafts" element={<Drafts />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Signup />} />
+
+        
         </Routes>
       </div>
       <Footer />

@@ -3,12 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { Links } from "../data/links";
 import close from "../assets/close.png";
 import menu from "../assets/menu.png";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.jpeg";
 import { IconButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BiSolidBellRing } from "react-icons/bi";
-import { setOpener } from "../Redux/slices/opener";
+import { setOpener, setProfileOpener } from "../Redux/slices/opener";
 import Searchbar from "./searchbar";
 // import { setLoader } from "../Redux/slices/LoaderSlice";
 import { getLoggedInUser } from "../Redux/slices/AuthSlice";
@@ -29,31 +29,31 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: any) => state.auth.user);
-  const { open } = useSelector((state: any) => state.opener);
+  const { open, profileOpener } = useSelector((state: any) => state.opener);
   const userToken = useSelector((state: any) => state.auth.userToken);
 
   useEffect(() => {
     dispatch(getLoggedInUser());
   }, [userToken]);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollTop = window.scrollY;
-  //     if (scrollTop > 100) {
-  //       setScrolled(true);
-  //     } else {
-  //       setScrolled(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      if (scrollTop > 100) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
 
-  //   window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {}, [user]);
   const [userSmallnav, setUserSmallNav] = useState(false);
-  console.log(user);
+  // console.log(user);
 
   return (
     <nav
@@ -64,14 +64,16 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
     >
       <div className="w-full flex  justify-between items-center max-w-7xl mx-auto">
         <div className="flex gap-2 items-center ">
-          <AiOutlineMenuUnfold
-            size="32"
-            className="text-white sm:hidden "
-            onClick={() => {
-              dispatch(setOpener(!open));
-              console.log("hello , this is my", open);
-            }}
-          />
+     {
+      user &&      <AiOutlineMenuUnfold
+      size="32"
+      className="text-black bg-gray-light p-2 rounded-full md:hidden"
+      onClick={() => {
+        dispatch(setProfileOpener(!profileOpener));
+        // console.log("hello , this is my",profileOpener);
+      }}
+    />
+     }
           <Link
             to="/"
             className="flex flex-col items-center "
@@ -83,9 +85,9 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
             <img
               src={logo}
               alt="logo"
-              className=" p-0 m-0 object-contain rounded h-[45px]"
+              className=" p-0 m-0 object-contain rounded h-[50px] price "
             />
-            <p className="text-slate-600 text-xs italic">your one stop shop</p>
+            <p className="text-slate-600 text-xs italic">let's help you sell</p>
           </Link>
         </div>
 
@@ -93,7 +95,9 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
           <div>
             <button
               className="bg-primary-orange text-white p-1 capitalize rounded px-4 hover:bg-secondary-orange"
-              onClick={() => SetShowAdsForm(true)}
+              onClick={() => {
+                user ? SetShowAdsForm(true) :navigate("/login")
+              }}
             >
               Sell
             </button>
@@ -156,7 +160,7 @@ const Navbar: React.FC<NavbarProps> = ({ SetShowLogin, SetShowAdsForm }) => {
             <div>
               <button
                 className="bg-primary-orange text-white p-1 rounded px-4 hover:bg-secondary-orange"
-                onClick={() => SetShowLogin(true)}
+                onClick={() => navigate('/login')}
               >
                 Signin
               </button>

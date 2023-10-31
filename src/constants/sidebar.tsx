@@ -6,8 +6,6 @@ import { fetchCategories } from "../Redux/hooks/categories.actions";
 import { setCategories } from "../Redux/slices/categoriesSlice";
 import { categoryData, subcategoryData } from "../interface/common";
 import { axiosService } from "../Redux/helpers/axios";
-import { HiLockClosed } from "react-icons/hi";
-import { setOpener } from "../Redux/slices/opener";
 import { ChevronRightTwoTone } from "@mui/icons-material";
 import { TopProducts } from "../data/topproducts";
 
@@ -21,7 +19,7 @@ const Sidebar = () => {
   const [loading, setLoading] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState(false);
 
-  const { open } = useSelector((state: any) => state.opener);
+  const { open} = useSelector((state: any) => state.opener);
 
   // console.log("Hello", open);
 

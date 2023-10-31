@@ -7,13 +7,6 @@ const Filters = () => {
     // Add more category options
   ];
 
-  const subcategoryOptions = [
-    "Mobile Phones",
-    "Laptops",
-    "Men's Clothing",
-    "Women's Clothing",
-    // Add more subcategory options
-  ];
 
   const budgetOptions = [
     "Kshs  100 -  200",

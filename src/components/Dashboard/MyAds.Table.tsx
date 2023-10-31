@@ -1,10 +1,9 @@
 import { Table } from "antd";
-import { Delete, Edit, Visibility } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   FetchLoggedUsersProducts,
-  FetchProductsAsync,
 } from "../../Redux/slices/AdsSlice";
 import { GettingUserById } from "../../Redux/slices/AuthSlice";
 import { AppDispatch } from "../../Redux/store";
@@ -12,7 +11,6 @@ import Loader from "../../constants/loader";
 import { Action } from "redux";
 import { toast } from "react-toastify";
 import {
-  ApproveProduct,
   DeleteProduct,
   DeactivateProduct,
   ActivateProduct,
@@ -95,7 +93,7 @@ const AdsTable = () => {
     navigate("/profile/myads");
   };
 
-  const toggleProductStatus = async (productId: any, isActive: any) => {
+  const toggleProductStatus = async (_productId: any, _isActive: any) => {
     try {
       // // Update product status here
       // dispatch(FetchLoggedUsersProducts(id));
@@ -199,7 +197,7 @@ const AdsTable = () => {
     {
       title: "IsSuspended",
       dataIndex: "issuspended",
-      render: (isSuspended: Boolean, record: any) => (
+      render: (isSuspended: Boolean, _record: any) => (
         <span className="flex gap-2">
           {isSuspended ? "Suspended" : "No"}
           {/* <span

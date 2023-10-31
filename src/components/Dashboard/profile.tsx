@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
   useEffect(() => {
     dispatch(getLoggedInUser());
   }, []);
-  console.log(user);
+  // console.log(user);
   // Function to handle form input changes
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

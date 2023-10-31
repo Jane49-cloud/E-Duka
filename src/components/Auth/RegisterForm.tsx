@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import close from "../../assets/close.png";
+import Logo from "../../assets/logo.jpeg";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
@@ -7,18 +7,14 @@ import { RegisteringUser } from "../../Redux/slices/AuthSlice";
 import { AppDispatch } from "../../Redux/store";
 import Loader from "../../constants/loader";
 import { locations } from "../../data/Location";
+import { useNavigate } from "react-router-dom";
 
-type RegisterFormProps = {
-  showRegister: boolean;
-  SetShowRegister: React.Dispatch<React.SetStateAction<boolean>>;
-  SetShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
-const RegisterForm: React.FC<RegisterFormProps> = ({
-  showRegister,
-  SetShowRegister,
-  SetShowLogin,
+
+const RegisterForm: React.FC = ({
+ 
 }) => {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false);
   const isLoading = useSelector((state: any) => state.auth.isLoading);
   const dispatch = useDispatch<AppDispatch>();
@@ -95,8 +91,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
     }
 
     dispatch(RegisteringUser(formData));
-    SetShowRegister(false);
-    SetShowLogin(true);
+  navigate("/login")
+   
 
     setFormData({
       firstname: "",
@@ -105,7 +101,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       email: "",
       phone: "",
       userimage: "",
-      location: "location",
+      location: "",
       password: "",
       confirmPassword: "",
     });
@@ -117,46 +113,22 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
   return (
     <>
-      {showRegister && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50 p-5">
-          <div className="lg:w-4/6 h-5/6 w-full bg-gray-light rounded-2xl p-10 shadow-2xl overflow-y-scroll ">
+ 
+        <div className="h-screen mx-auto p-10 bg-gray-light w-screen overflow-auto">
+        <div className="lg:w-2/6 h-auto w-full bg-white rounded-2xl p-10 shadow-2xl "  style={{margin:"auto"}}>
             <div className="flex items-center justify-center gap-3">
-              <h4 className="text-center mb-2">
-                Welcome, Please sign up to proceed
-              </h4>
+             
 
-              <img
-                src={close}
-                alt=""
-                className="h-6 w-6 object-cover"
-                onClick={() => {
-                  SetShowRegister(false);
-                }}
-              />
+              <img src={Logo} alt="logo" className="h-24 object-cover " />
             </div>
-            <div className="flex">
-              <button
-                className="text-white p-2 px-5 opacity-50 cursor-not-allowed w-3/6 bg-black-100 h-12"
-                disabled
-              >
-                Signup
-              </button>
-              <button
-                className="bg-white p-2 px-5 cursor-pointer w-3/6 h-12"
-                onClick={() => {
-                  SetShowRegister(false);
-                  SetShowLogin(true);
-                }}
-              >
-                Signin
-              </button>
-            </div>
+       
 
             <form
               onSubmit={handleSubmit}
               className="mx-auto p-4 border rounded-lg shadow-lg mt-4"
             >
-              <div className="mb-4">
+   <div className="flex gap-2">
+   <div className="mb-4">
                 <label
                   htmlFor="firstname"
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -191,6 +163,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                   placeholder="Enter your Middle Name"
                 />
               </div>
+   </div>
               <div className="mb-4">
                 <label
                   htmlFor="lastname"
@@ -352,10 +325,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               >
                 Submit
               </button>
+              <p className="text-gray-500 text-center mt-3">Already have an account?    
+               <a href="/login" className="ml-2 text-blue-500">Sign in</a> </p>
             </form>
           </div>
         </div>
-      )}
+
     </>
   );
 };

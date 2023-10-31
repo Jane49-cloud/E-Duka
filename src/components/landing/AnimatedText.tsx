@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 
 const TextAnimation = () => {
   const sentences = ["Sentence 1", "Sentence 2", "Sentence 3"];
@@ -12,10 +12,10 @@ const TextAnimation = () => {
 
     const textLoop = () => {
       if (!isDeleting && index <= sentences[sentenceIndex].length) {
-        setDisplayText((prevText) => sentences[sentenceIndex].slice(0, index));
+        setDisplayText((_prevText) => sentences[sentenceIndex].slice(0, index));
         index++;
       } else if (isDeleting && index >= 0) {
-        setDisplayText((prevText) => sentences[sentenceIndex].slice(0, index));
+        setDisplayText((_prevText) => sentences[sentenceIndex].slice(0, index));
         index--;
       }
 

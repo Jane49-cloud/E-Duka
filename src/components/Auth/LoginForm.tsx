@@ -1,26 +1,18 @@
 import React, { useState } from "react";
-import close from "../../assets/close.png";
+import Logo from "../../assets/logo.jpeg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { LoggingUser } from "../../Redux/slices/AuthSlice";
 import { AppDispatch } from "../../Redux/store";
 import Loader from "../../constants/loader";
+import { useNavigate } from "react-router-dom";
 
-// Define the types for your props
-type LoginFormProps = {
-  showLogin: boolean;
-  showRegister: boolean;
-  SetShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
-  SetShowRegister: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
-const LoginForm: React.FC<LoginFormProps> = ({
-  showLogin,
-  SetShowLogin,
-  // showRegister,
-  SetShowRegister,
+
+const LoginForm: React.FC= ({
 }) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
   const isLoading = useSelector((state: any) => state.auth.isLoading);
@@ -38,7 +30,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
     e.preventDefault();
 
     dispatch(LoggingUser(formData));
-    SetShowLogin(false);
+    navigate("/")
+    
 
     // clear form data after submission
 
@@ -54,45 +47,20 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
   return (
     <>
-      {showLogin && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="lg:w-4/6 h-5/6 w-full bg-gray-light rounded-2xl p-10 shadow-2xl overflow-y-scroll ">
+   
+        <div className="h-screen mx-auto p-10 bg-gray-light w-screen">
+          <div className="lg:w-2/6 h-5/6 w-full bg-white rounded-2xl p-10 shadow-2xl "  style={{margin:"auto"}}>
             <div className="flex items-center justify-center gap-3">
-              <h4 className="text-center mb-2">
-                Welcome, Please Login to proceed
-              </h4>
+            <img src={Logo} alt="logo" className="h-24 object-cover " />
 
-              <img
-                src={close}
-                alt=""
-                className="h-6 w-6 object-cover"
-                onClick={() => {
-                  SetShowLogin(false);
-                }}
-              />
+     
             </div>
 
-            <div className="flex">
-              <button
-                className="p-2 px-5 opacity-50 cursor-not-allowed w-3/6 bg-black-100 text-white h-12"
-                disabled
-              >
-                SignIn
-              </button>
-              <button
-                className="bg-white p-2 px-5 cursor-pointer w-3/6 h-12"
-                onClick={() => {
-                  SetShowLogin(false);
-                  SetShowRegister(true);
-                }}
-              >
-                Signup
-              </button>
-            </div>
+          
 
             <form
               onSubmit={handleSubmit}
-              className="mx-auto p-4 border rounded-lg shadow-lg mt-4"
+              className="mx-auto p-4 border rounded-lg shadow-lg mt-4 price"
             >
               <div className="mb-4">
                 <label
@@ -107,7 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange h-12"
                   placeholder="Enter your Email Address"
                 />
               </div>
@@ -123,7 +91,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange"
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange h-12"
                     placeholder={`Enter password `}
                   />
                   <button
@@ -142,10 +110,15 @@ const LoginForm: React.FC<LoginFormProps> = ({
               >
                 Submit
               </button>
+             
+              <p className="text-gray-500 text-center mt-3">Forgot Password?    
+               <a href="/login" className="ml-2 text-blue-500">Reset Password</a> </p>
+               <p className="text-gray-500 text-center mt-3">You do not have an account?    
+               <a href="/register" className="ml-2 text-blue-500">Sign Up</a> </p>
             </form>
           </div>
         </div>
-      )}
+   
     </>
   );
 };
